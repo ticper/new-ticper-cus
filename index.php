@@ -70,40 +70,41 @@
 						$sql2 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE OrgID = '$OrgID'");
 						$jun = 0;
 						print('<div class="row">');
-							while ($result2 = mysqli_fetch_assoc($sql2)) {
-								print('<div class="col s12 m4">');
-									print('<div class="card">');
-										print('<div class="card-image">');
-											print('<img src="img/'.$result2['FoodID'].'.png">');
-											print('<span class="card-title">'.$result2['FoodName'].'</span>');
-										print('</div>');
-										print('<div class="card-content">');
-											print('<div class="chip">');
-												print('<p>'.$result2['FoodPrice'].'円</p>');
-											print('</div>');
-											print('<div class="chip">');
-												print('<p>残り'.$result2['FoodStock'].'個</p>');
-											print('</div>');
-											print('<p><br>'.$result2['FoodDescription'].'</p>');
-										print('</div>');
-								print('<div class="card-action">');
-									if($result2['FoodStock']!=0){
-									print('<form action="addfood.php" method="POST">');
-										print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
-										print('<input placeholder="枚数を入力" type="number" name="maisu"'.$result2['FoodStock'].'">');
-										print('<input class="btn" type="submit" value="カートに追加">');
-									print('</form>');
-									}else{
-										print('<input class="btn red darken-2" type="submit" value="売り切れ">');
-									}
-									print('</div>');
-								print('</div>');
+						while ($result2 = mysqli_fetch_assoc($sql2)) {
+							print('<div class="col s12 m4">');
+							print('<div class="card">');
+							print('<div class="card-image">');
+							print('<img src="img/'.$result2['FoodID'].'.png">');
+							print('<span class="card-title">'.$result2['FoodName'].'</span>');
+							print('</div>');
+							print('<div class="card-content">');
+							print('<div class="chip">');
+							print('<p>'.$result2['FoodPrice'].'円</p>');
+							print('</div>');
+							print('<div class="chip">');
+							print('<p>残り'.$result2['FoodStock'].'個</p>');
+							print('</div>');
+							print('<p><br>'.$result2['FoodDescription'].'</p>');
+							print('</div>');
+							print('<div class="card-action">');
+							if($result2['FoodStock']!=0){
+								print('<form action="addfood.php" method="POST">');
+								print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
+								print('<input placeholder="枚数を入力" type="number" name="maisu"'.$result2['FoodStock'].'">');
+								print('<input class="btn" type="submit" value="カートに追加">');
+								print('</form>');
+							} else {
+								print('<input class="btn red darken-2" type="submit" value="売り切れ">');
+							}
+							print('</div>');
+							print('</div>');
 							print('</div>');
 							$jun = $jun + 1;
 							if($jun == 3) {
 								print('</div><div class="row">');
 							}
 						}
+						print('</div>');
 					}
 				?>
 			</div>
