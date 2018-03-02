@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 	<head>
@@ -38,16 +41,30 @@
 					<a href="#!" class="brand-logo">Ticper</a>
 					<a href="#!" data-target="mobilemenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
-						<li><a href="#!">ログイン</a></li>
-						<li><a href="#!">新規登録</a></li>
+						<?php
+							if(isset($_SESSION['UserID']) == ''){
+								print('<li><a href="#!">ログイン</a></li>');
+								print('<li><a href="u_register.php">新規登録</a></li>');
+							}else{
+								print('<li><a href="#!">カートを見る</a></li>');
+								print('<li><a href="logout.php">ログアウト</a></li>');
+							}
+						?>
 					</ul>
 				</div>
 			</div>
 		</nav>
 		
 		<ul class="sidenav" id="mobilemenu">
-			<li><a href="#!">ログイン</a></li>
-			<li><a href="#!">新規登録</a></li>
+			<?php
+				if(isset($_SESSION['UserID']) == ''){
+					print('<li><a href="#!">ログイン</a></li>');
+					print('<li><a href="u_register.php">新規登録</a></li>');
+				}else{
+					print('<li><a href="#!">カートを見る</a></li>');
+					print('<li><a href="logout.php">ログアウト</a></li>');
+				}
+			?>
 		</ul>
 		
 		<script>
@@ -58,13 +75,24 @@
 					
 		<div class="container">
 			<div class="col s12">
-				<h2>Ticper</h2>
-				<p>Ticperへようこそ</p>
+				<?php
+					require_once('config/config.php');
+					$sql = mysqli_query($db_link,"SELECT * FROM tp_org");
+					print('<h4>団体一覧</h4>');
+					print('<ul>');
+					while($result =mysqli_fetch_assoc($sql)){
+						print('<li><a href="#'.$result['OrgID'].'">・'.$result['OrgName'].'</a></li>');
+					}
+					print('</ul>');
+				?>
 				<?php
 					require_once('config/config.php');
 					$sql = mysqli_query($db_link, "SELECT * FROM tp_org");
 					while ($result = mysqli_fetch_assoc($sql)) {
+						print('<div id="'.$result['OrgID'].'">');
 						print('<h4>'.$result['OrgName'].'</h4>');
+						print('</div>');
+						print('<h6>'.$result['OrgPlace'].'</h6>');
 						print('<h5>食品一覧</h5>');
 						$OrgID = $result['OrgID'];
 						$sql2 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE OrgID = '$OrgID'");
@@ -93,7 +121,7 @@
 								print('<input placeholder="枚数を入力" type="number" name="maisu"'.$result2['FoodStock'].'">');
 								print('<input class="btn" type="submit" value="カートに追加">');
 								print('</form>');
-							} else {
+							}else{
 								print('<input class="btn red darken-2" type="submit" value="売り切れ">');
 							}
 							print('</div>');
