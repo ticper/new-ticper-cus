@@ -12,17 +12,21 @@
 	$e_username = $db_link -> real_escape_string($username);
 	$e_password = $db_link -> real_escape_string($password);
 	
-	// ユーザーデータを鯖に登録する
-	mysqli_query($db_link,"INSERT INTO tp_user_cust(UserID,UserName,Password) VALUES('$e_userid','$e_username','$e_password')");
+	//Passwordをhashする
+	$h_password = password_hash($e_password,PASSWORD_DEFAULT)."\n";
 	
-	//// SQL文をデータベース鯖に投げる
+	// ユーザーデータを鯖に登録する
+	mysqli_query($db_link,"INSERT INTO tp_user_cust(UserID,UserName,Password) VALUES('$e_userid','$e_username','$h_password')");
+	
+	// SQL文をデータベース鯖に投げる
 	$sql = mysqli_query($db_link, "SELECT UserID,UserName,Password FROM tp_user_cust WHERE UserID = '$e_userid'");
 	
 	// SQLで帰ってきた答えを配列にする
 	$result = mysqli_fetch_assoc($sql);
 	
 	// ユーザIDとパスワードが一致した場合
-	if($e_userid == $result['UserID'] and $e_username == $result['UserName'] and password_verify($e_password, $result['Password'])) {
+	if($e_userid == $result['UserID'] and password_verify($e_password, $result['Password'])) {
+	
 	// セッション
 	session_start();
 	$logMessage = "アカウントを作成";
