@@ -46,6 +46,7 @@
 								print('<li><a href="#!">ログイン</a></li>');
 								print('<li><a href="u_register.php">新規登録</a></li>');
 							}else{
+								print('<li><a href="#!">'.$_SESSION['UserName'].'さん</a></li>');
 								print('<li><a href="#!">カートを見る</a></li>');
 								print('<li><a href="logout.php">ログアウト</a></li>');
 							}
@@ -61,6 +62,7 @@
 					print('<li><a href="#!">ログイン</a></li>');
 					print('<li><a href="u_register.php">新規登録</a></li>');
 				}else{
+					print('<li><a href="#!">'.$_SESSION['UserName'].'さん</a></li>');
 					print('<li><a href="#!">カートを見る</a></li>');
 					print('<li><a href="logout.php">ログアウト</a></li>');
 				}
