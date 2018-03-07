@@ -1,5 +1,9 @@
 <?php
 	session_start();
+	if(isset($_SESSION['UserID']) != ''){
+		print('<script>alert("既にログインしています。一旦ログアウトしてからアクセスしてください。")</script>');
+		print('<script>location.href = "index.php";</script>');
+	}
 ?>
 <!DOCTYPE HTML>
 <html lang="ja">
