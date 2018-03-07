@@ -27,13 +27,13 @@
 	// ユーザIDとパスワードが一致した場合
 	if($e_userid == $result['UserID'] and password_verify($e_password, $result['Password'])) {
 	
-	// セッション
-	session_start();
-	$_SESSION['UserID'] = e_userid;
-	$logMessage = "アカウントを作成";
-	$sql = mysqli_query($db_link, "INSERT INTO tp_log ('Time', 'Action', 'CustUserID') VALUES (CURRENT_TIMESTAMP, '$logMessage', '$e_userid')");
-	print('<script>location.href = "index.php";</script>');
+		// セッション
+		session_start();
+		$_SESSION['UserID'] = $e_userid;
+		$logMessage = "アカウントを作成";
+		$sql = mysqli_query($db_link, "INSERT INTO tp_log ('Time', 'Action', 'CustUserID') VALUES (CURRENT_TIMESTAMP, '$logMessage', '$e_userid')");
+		print('<script>location.href = "index.php";</script>');
 	} else {
-	print('<script>alert("登録に失敗しました。ユーザー名が重複している可能性があります。別のユーザーIDを使用してください"); location.href = "u_register.php"; </script>');
+		print('<script>alert("登録に失敗しました。ユーザー名が重複している可能性があります。別のユーザーIDを使用してください"); location.href = "u_register.php"; </script>');
 	}
 ?>
