@@ -13,7 +13,7 @@
 	$e_password = $db_link -> real_escape_string($password);
 	
 	//Passwordをhashする
-	$h_password = password_hash($e_password,PASSWORD_DEFAULT)."\n";
+	$h_password = password_hash($e_password,PASSWORD_DEFAULT);
 	
 	// ユーザーデータを鯖に登録する
 	mysqli_query($db_link,"INSERT INTO tp_user_cust(UserID,UserName,Password) VALUES('$e_userid','$e_username','$h_password')");
