@@ -38,12 +38,12 @@
 		<nav class="light-blue darken-4">
 			<div class="container">
 				<div class="nav-wrapper">
-					<a href="#!" class="brand-logo">Ticper</a>
+					<a href="index.php" class="brand-logo">Ticper</a>
 					<a href="#!" data-target="mobilemenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
 						<?php
 							if(isset($_SESSION['UserID']) == ''){
-								print('<li><a href="#!">ログイン</a></li>');
+								print('<li><a href="login.php">ログイン</a></li>');
 								print('<li><a href="u_register.php">新規登録</a></li>');
 							}else{
 								print('<li><a href="#!">'.$_SESSION['UserName'].'さん</a></li>');
@@ -59,7 +59,7 @@
 		<ul class="sidenav" id="mobilemenu">
 			<?php
 				if(isset($_SESSION['UserID']) == ''){
-					print('<li><a href="#!">ログイン</a></li>');
+					print('<li><a href="login.php">ログイン</a></li>');
 					print('<li><a href="u_register.php">新規登録</a></li>');
 				}else{
 					print('<li><a href="#!">'.$_SESSION['UserName'].'さん</a></li>');

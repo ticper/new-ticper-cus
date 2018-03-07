@@ -40,19 +40,19 @@
 		<nav class="light-blue darken-4">
 			<div class="container">
 				<div class="nav-wrapper">
-					<a href="#!" class="brand-logo">Ticper</a>
+					<a href="index.php" class="brand-logo">Ticper</a>
 					<a href="#" data-target="mobilemenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
-						<li><a href="#!">ログイン</a></li>
-						<li><a href="#!">新規登録</a></li>
+						<li><a href="login.php">ログイン</a></li>
+						<li><a href="u_register.php">新規登録</a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 		
 		<ul class="sidenav" id="mobilemenu">
-			<li><a href="#!">ログイン</a></li>
-			<li><a href="#!">新規登録</a></li>
+			<li><a href="login.php">ログイン</a></li>
+			<li><a href="u_register.php">新規登録</a></li>
 		</ul>
 		
 		<script>
