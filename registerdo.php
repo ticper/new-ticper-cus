@@ -26,7 +26,7 @@
 		mysqli_query($db_link,"INSERT INTO tp_user_cust(UserID,UserName,Password) VALUES('$e_userid','$e_username','$h_password')");
 		
 		// SQL文をデータベース鯖に投げる
-		$sql = mysqli_query($db_link, "SELECT UserID,UserName,Password FROM tp_user_cust WHERE UserID = '$e_userid'");			
+		$sql = mysqli_query($db_link, "SELECT UserID,UserName,Password FROM tp_user_cust WHERE UserID = '$e_userid'");
 		// SQLで帰ってきた答えを配列にする
 		$result = mysqli_fetch_assoc($sql);
 		

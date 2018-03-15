@@ -82,7 +82,7 @@
 					$sql = mysqli_query($db_link,"SELECT * FROM tp_org");
 					print('<h4>団体一覧</h4>');
 					print('<ul>');
-					while($result =mysqli_fetch_assoc($sql)){
+					while($result = mysqli_fetch_assoc($sql)){
 						print('<li><a href="#'.$result['OrgID'].'">・'.$result['OrgName'].'</a></li>');
 					}
 					print('</ul>');
