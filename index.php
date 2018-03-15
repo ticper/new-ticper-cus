@@ -120,7 +120,7 @@
 							if($result2['FoodStock']!=0){
 								print('<form action="addfood.php" method="POST">');
 								print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
-								print('<input placeholder="枚数を入力" type="number" name="maisu"'.$result2['FoodStock'].'">');
+								print('<input placeholder="枚数を入力" type="number" name="maisu" min="1" max='.$result2['FoodStock'].' '.$result2['FoodStock'].'">');
 								print('<input class="btn" type="submit" value="カートに追加">');
 								print('</form>');
 							}else{
