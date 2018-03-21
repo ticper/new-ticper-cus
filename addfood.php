@@ -38,7 +38,7 @@
 		} else {
 			$s_maisu = $s_maisu + $result['Sheets'];
 			//Sheetsに数を追加する
-			mysqli_query($db_link,"UPDATE tp_cust_carts SET Sheets = '$s_maisu'");
+			mysqli_query($db_link,"UPDATE tp_cust_carts SET Sheets = Sheets + '$s_maisu' WHERE UserID = '$userid' AND Foodid = '$foodid'");
 			//追加されたことを表示してindexに戻す。
 			print('<script>alert("食品を追加しました。");location.href = "index.php";</script>');
 		}
