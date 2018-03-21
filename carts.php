@@ -79,40 +79,46 @@
 			<div class="col s12">
 				<?php
 					require_once('config/config.php');
-					$foodid = 1;
-					$OrgID = 1;
-					$userid = $_SESSION['UserID'];
-					$sql = mysqli_query($db_link,"SELECT * FROM tp_cust_carts WHERE UserID = '$userid' AND FoodID = '$foodid'");
-					print('<h4>カート一覧</h4>');
-					while($result = mysqli_fetch_assoc($sql)){
-						$sql2 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE OrgID = '$OrgID'");
-						$result2 = mysqli_fetch_assoc($sql2);
-						print('<div class="col s12 m4">');
-						print('<div class="card">');
-						print('<div class="card-image">');
-						print('<img src="img/'.$result2['FoodID'].'.png">');
-						print('<span class="card-title">'.$result2['FoodName'].'</span>');
-						print('</div>');
-						print('<div class="card-content">');
-						print('<div class="chip">');
-						print('<p>'.$result2['FoodPrice'].'円</p>');
-						print('</div>');
-						print('<div class="chip">');
-						print('<p>残り'.$result['Sheets'].'個</p>');
-						print('</div>');
-						print('<p><br>'.$result2['FoodDescription'].'</p>');
-						print('</div>');
-						print('<div class="card-action">');
-						print('<form action="#!" method="POST">');
-						print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
-						print('<input placeholder="削除する枚数を入力" type="number" name="maisu" min="1" max="'.$result['Sheets'].'">');
-						print('<input class="btn red darken-2" type="submit" value="削除">');
-						print('</form>');
-						print('</div>');
-						print('</div>');
-						$foodid = $foodid + 1;
-						$OrgID = $OrgID +1;
-						$sql = mysqli_query($db_link,"SELECT * FROM tp_cust_carts WHERE UserID = '$userid' AND FoodID = $foodid");
+					$sql = mysqli_query($db_link,"SELECT * FROM tp_food");
+					$result = mysqli_fetch_assoc($sql);
+					print('<table>')
+					print('<thead>');
+					//どうやってループしたらいいかな☆
+					while(){
+						print('<tr>');
+						print('<th>');
+						print('FoodName');
+						print('</th>');
+						print('<th>');
+						print('FoodPrice');
+						print('</th>');
+						print('<th>');
+						print('Sheets');
+						print('</th>');
+						print('</tr>');
+						print('</thead>');
+						print('<tbody>');
+						
+						print('<tr>');
+						print('<td>');
+						//食品名
+						print('</td>');
+						print('</tr>');
+						
+						print('<tr>');
+						print('<td>');
+						//値段
+						print('</td>');
+						print('</tr>')
+
+						print('<tr>');
+						print('<td>');
+						//枚数
+						print('</td>');
+						print('</tr>');
+
+						print('</tbody>');
+						print('</table>');
 					}
 				?>
 			</div>
