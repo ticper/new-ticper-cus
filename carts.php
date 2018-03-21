@@ -81,7 +81,8 @@
 					require_once('config/config.php');
 					$foodid = 1;
 					$OrgID = 1;
-					$sql = mysqli_query($db_link,"SELECT * FROM tp_cust_carts WHERE UserID = $_SESSION['UserID'] AND FoodID = '$foodid'");
+					$userid = $_SESSION['UserID'];
+					$sql = mysqli_query($db_link,"SELECT * FROM tp_cust_carts WHERE UserID = '$userid' AND FoodID = '$foodid'");
 					print('<h4>カート一覧</h4>');
 					while($result = mysqli_fetch_assoc($sql)){
 						$sql2 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE OrgID = '$OrgID'");
@@ -111,7 +112,7 @@
 						print('</div>');
 						$foodid = $foodid + 1;
 						$OrgID = $OrgID +1;
-						$sql = mysqli_query($db_link,"SELECT * FROM tp_cust_carts WHERE UserID = $_SESSION['UserID'] AND FoodID = $foodid");
+						$sql = mysqli_query($db_link,"SELECT * FROM tp_cust_carts WHERE UserID = '$userid' AND FoodID = $foodid");
 					}
 				?>
 			</div>
