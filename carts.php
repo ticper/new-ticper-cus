@@ -77,50 +77,55 @@
 					
 		<div class="container">
 			<div class="col s12">
+				<h4>カート</h4>
 				<?php
 					require_once('config/config.php');
-					$sql = mysqli_query($db_link,"SELECT * FROM tp_food");
-					$result = mysqli_fetch_assoc($sql);
 					print('<table>');
 					print('<thead>');
-					//どうやってループしたらいいかな☆
-					while(){
-						print('<tr>');
-						print('<th>');
-						print('FoodName');
-						print('</th>');
-						print('<th>');
-						print('FoodPrice');
-						print('</th>');
-						print('<th>');
-						print('Sheets');
-						print('</th>');
-						print('</tr>');
-						print('</thead>');
-						print('<tbody>');
-						
-						print('<tr>');
-						print('<td>');
-						//食品名
-						print('</td>');
-						print('</tr>');
-						
-						print('<tr>');
-						print('<td>');
-						//値段
-						print('</td>');
-						print('</tr>')
+					print('<tr>');
+					print('<th>');
+					print('FoodName');
+					print('</th>');
+					print('<th>');
+					print('FoodPrice');
+					print('</th>');
+					print('<th>');
+					print('Sheets');
+					print('</th>');
+					print('</tr>');
+					print('</thead>');
+					print('<tbody>');
 
-						print('<tr>');
-						print('<td>');
-						//枚数
-						print('</td>');
-						print('</tr>');
-
-						print('</tbody>');
-						print('</table>');
+					$sql = mysqli_query($db_link,"SELECT * FROM tp_food");
+					while ($result =  mysqli_fetch_assoc($sql)) {
+						$userid = $_SESSION['UserID'];
+						$foodid = $result['FoodID'];
+						$sql2 = mysqli_query($db_link,"SELECT * FROM tp_cust_carts WHERE UserID = '$userid' AND FoodID = '$foodid'");
+						$result2 = mysqli_fetch_assoc($sql2);
+						if($result2['Sheets'] != 0){
+							print('<tr>');
+							print('<td>');
+							print($result['FoodName']);
+							print('</td>');
+							print('<td>');
+							print($result['FoodPrice']);
+							print('</td>');
+							print('<td>');
+							print($result2['Sheets']);
+							print('</td>');
+							print('<td>');
+							print('<form action="#!" method="POST">');
+							print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
+							print('<input required placeholder="削除する枚数を入力" type="number" name="maisu" min="1" max='.$result2['Sheets'].' ">');
+							print('<input class="btn red darken-2" type="submit" value="削除">');
+							print('</form>');
+							print('</td>');
+							print('</tr>');
+						}
 					}
-				?>
+					print('</tbody>');
+					print('</table>');
+					?>
 			</div>
 		</div>
 	</body>
