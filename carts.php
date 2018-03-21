@@ -97,6 +97,7 @@
 					print('<tbody>');
 
 					$sql = mysqli_query($db_link,"SELECT * FROM tp_food");
+					$price = 0;
 					while ($result =  mysqli_fetch_assoc($sql)) {
 						$userid = $_SESSION['UserID'];
 						$foodid = $result['FoodID'];
@@ -115,17 +116,21 @@
 							print('</td>');
 							print('<td>');
 							print('<form action="deletefood.php" method="POST">');
-							print('<input type="hidden" name="UserID" value="'.$_SESSION['UseriD'].'">');
-							print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
+							print('<input type="hidden" name="userid" value="'.$_SESSION['UserID'].'">');
+							print('<input type="hidden" name="foodid" value="'.$result2['FoodID'].'">');
 							print('<input required placeholder="削除する枚数を入力" type="number" name="maisu" min="1" max='.$result2['Sheets'].' ">');
 							print('<input class="btn red darken-2" type="submit" value="削除">');
 							print('</form>');
 							print('</td>');
 							print('</tr>');
+							$price = $price + ($result['FoodPrice'] * $result2['Sheets']);
 						}
+
 					}
 					print('</tbody>');
 					print('</table>');
+					print('合計'.$price.'円です。');
+					print('<a href="qr.php"><input class="btn" type="submit" value="NEXT">');
 					?>
 			</div>
 		</div>
