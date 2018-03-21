@@ -18,13 +18,16 @@
 		
 		//SQLの特殊な文字を抜き取る
 		$e_foodid = $db_link -> real_escape_string($foodid);
+		$s_foodid = htmlspecialchars($e_foodid, ENT_QUOTES);
+		
 		$e_maisu = $db_link -> real_escape_string($maisu);
+		$s_maisu = htmlspecialchars($e_maisu, ENT_QUOTES);
 		
 		//ReservationIDチェック
 		
 		
 		//食品を鯖に登録する
-		mysqli_query($db_link,"INSERT INTO tp_cust_carts(ReservationID,UserID,FoodID,Sheets) VALUES('','$userid','$foodid','$e_maisu')");
+		mysqli_query($db_link,"INSERT INTO tp_cust_carts(UserID,FoodID,Sheets) VALUES('$userid','$foodid','$e_maisu')");
 		
 		//追加されたことを表示してindexに戻す。
 		print('<script>alert("食品を追加しました。");location.href = "index.php";</script>');
