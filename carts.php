@@ -114,7 +114,8 @@
 							print($result2['Sheets']);
 							print('</td>');
 							print('<td>');
-							print('<form action="#!" method="POST">');
+							print('<form action="deletefood.php" method="POST">');
+							print('<input type="hidden" name="UserID" value="'.$_SESSION['UseriD'].'">');
 							print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
 							print('<input required placeholder="削除する枚数を入力" type="number" name="maisu" min="1" max='.$result2['Sheets'].' ">');
 							print('<input class="btn red darken-2" type="submit" value="削除">');
