@@ -11,8 +11,8 @@
 	$s_userid = htmlspecialchars($e_userid, ENT_QUOTES);
 
 	$e_password = $db_link -> real_escape_string($password);
-	$s_passwors = htmlspecialchars($e_password, ENT_QUOTES);
-	
+	$s_password = htmlspecialchars($e_password, ENT_QUOTES);
+
 	// SQL文をデータベース鯖に投げる
 	$sql = mysqli_query($db_link, "SELECT UserID,UserName,Password FROM tp_user_cust WHERE UserID = '$s_userid'");
 	// SQLで帰ってきた答えを配列にする
