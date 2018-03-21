@@ -81,7 +81,7 @@
 					require_once('config/config.php');
 					$sql = mysqli_query($db_link,"SELECT * FROM tp_food");
 					$result = mysqli_fetch_assoc($sql);
-					print('<table>')
+					print('<table>');
 					print('<thead>');
 					//どうやってループしたらいいかな☆
 					while(){
