@@ -105,7 +105,7 @@
 						print('<div class="card-action">');
 						print('<form action="#!" method="POST">');
 						print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
-						print('<input placeholder="削除する枚数を入力" type="number" name="maisu" min="1" max='.$result['Sheets'].' '.$result2['FoodStock'].'">');
+						print('<input placeholder="削除する枚数を入力" type="number" name="maisu" min="1" max="'.$result['Sheets'].'">');
 						print('<input class="btn red darken-2" type="submit" value="削除">');
 						print('</form>');
 						print('</div>');
