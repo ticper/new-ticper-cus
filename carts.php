@@ -1,5 +1,9 @@
 <?php
 	session_start();
+	if(isset($_SESSION['UserID']) == ''){
+		print('<script>alert("ログインしてからアクセスしてください。")</script>');
+		print('<script>location.href = "index.php";</script>');
+	}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -47,7 +51,7 @@
 								print('<li><a href="u_register.php">新規登録</a></li>');
 							}else{
 								print('<li><a href="#!">'.$_SESSION['UserName'].'さん</a></li>');
-								print('<li><a href="#!">カートを見る</a></li>');
+								print('<li><a href="carts.php">カートを見る</a></li>');
 								print('<li><a href="logout.php">ログアウト</a></li>');
 							}
 						?>
@@ -63,7 +67,7 @@
 					print('<li><a href="u_register.php">新規登録</a></li>');
 				}else{
 					print('<li><a href="#!">'.$_SESSION['UserName'].'さん</a></li>');
-					print('<li><a href="#!">カートを見る</a></li>');
+					print('<li><a href="carts.php">カートを見る</a></li>');
 					print('<li><a href="logout.php">ログアウト</a></li>');
 				}
 			?>
@@ -92,6 +96,12 @@
 					print('<th>');
 					print('Sheets');
 					print('</th>');
+					print('<th>');
+					print('Option');
+					print('</th>');
+					print('<th>');
+					print('Delete');
+					print('</th>');
 					print('</tr>');
 					print('</thead>');
 					print('<tbody>');
@@ -119,7 +129,9 @@
 							print('<input type="hidden" name="userid" value="'.$_SESSION['UserID'].'">');
 							print('<input type="hidden" name="foodid" value="'.$result2['FoodID'].'">');
 							print('<input required placeholder="削除する枚数を入力" type="number" name="maisu" min="1" max='.$result2['Sheets'].' ">');
-							print('<input class="btn red darken-2" type="submit" value="削除">');
+							print('</td>');
+							print('<td>');
+							print('<input class="btn red darken-2 right" type="submit" value="削除">');
 							print('</form>');
 							print('</td>');
 							print('</tr>');
