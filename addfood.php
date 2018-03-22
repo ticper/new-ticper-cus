@@ -24,14 +24,15 @@
 		$s_maisu = htmlspecialchars($e_maisu, ENT_QUOTES);
 		
 		//FoodStockの取得
-		$stock = mysqli_query($db_link,"SELECT FoodStock WHERE FoodID = $foodid");
+		$stock = mysqli_query($db_link,"SELECT FoodStock FROM tp_food WHERE FoodID = $foodid");
+		$s_stock = mysqli_fetch_assoc($stock);
 		
 		//データの取得
 		$sql = mysqli_query($db_link,"SELECT * FROM tp_cust_carts WHERE UserID = '$userid' AND FoodID = '$foodid'");
 		$result = mysqli_fetch_assoc($sql);
 
 		//追加した量が在庫を超えていたら弾く
-		if ($stock < $result['Sheets'] + $s_maisu) {		
+		if ($s_stock['FoodStock'] > $result['Sheets'] + $s_maisu){		
 		
 		//カートチェック
 			if($result['Sheets'] == ''){
