@@ -23,24 +23,32 @@
 		$e_maisu = $db_link -> real_escape_string($maisu);
 		$s_maisu = htmlspecialchars($e_maisu, ENT_QUOTES);
 		
+		//FoodStockの取得
+		$stock = mysqli_query($db_link,"SELECT FoodStock WHERE FoodID = $foodid");
+		
 		//データの取得
-		$sql = mysqli_query($db_link,"SELECT UserID,FoodID,Sheets FROM tp_cust_carts WHERE UserID = '$userid' AND Sheets = '$s_maisu'");
+		$sql = mysqli_query($db_link,"SELECT * FROM tp_cust_carts WHERE UserID = '$userid' AND FoodID = '$foodid'");
 		$result = mysqli_fetch_assoc($sql);
 
-		//カートチェック
-		if($result['Sheets'] == ''){
-
-			//食品を鯖に登録する
-			mysqli_query($db_link,"INSERT INTO tp_cust_carts(UserID,FoodID,Sheets) VALUES('$userid','$foodid','$e_maisu')");
+		//追加した量が在庫を超えていたら弾く
+		if ($stock < $result['Sheets'] + $s_maisu) {		
 		
-			//追加されたことを表示してindexに戻す。
-			print('<script>alert("食品を追加しました。");location.href = "index.php";</script>');
+		//カートチェック
+			if($result['Sheets'] == ''){
+
+				//食品を鯖に登録する
+				mysqli_query($db_link,"INSERT INTO tp_cust_carts(UserID,FoodID,Sheets) VALUES('$userid','$foodid','$e_maisu')");
+			
+				//追加されたことを表示してindexに戻す。
+				print('<script>alert("食品を追加しました。");location.href = "index.php";</script>');
+			} else {
+				//Sheetsに数を追加する
+				mysqli_query($db_link,"UPDATE tp_cust_carts SET Sheets = Sheets + '$s_maisu' WHERE UserID = '$userid' AND Foodid = '$foodid'");
+				//追加されたことを表示してindexに戻す。
+				print('<script>alert("食品を追加しました。");location.href = "index.php";</script>');
+			}
 		} else {
-			$s_maisu = $s_maisu + $result['Sheets'];
-			//Sheetsに数を追加する
-			mysqli_query($db_link,"UPDATE tp_cust_carts SET Sheets = Sheets + '$s_maisu' WHERE UserID = '$userid' AND Foodid = '$foodid'");
-			//追加されたことを表示してindexに戻す。
-			print('<script>alert("食品を追加しました。");location.href = "index.php";</script>');
+			print('<script>alert("食品の追加した合計が在庫を上回っています。");location.href = "index.php";</script>');
 		}
 	}
 ?>
