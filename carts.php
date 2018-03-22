@@ -128,7 +128,7 @@
 							print('<form action="deletefood.php" method="POST">');
 							print('<input type="hidden" name="userid" value="'.$_SESSION['UserID'].'">');
 							print('<input type="hidden" name="foodid" value="'.$result2['FoodID'].'">');
-							print('<input required placeholder="削除する枚数を入力" type="number" name="maisu" min="1" max='.$result2['Sheets'].' ">');
+							print('<input required placeholder="削除する枚数" type="number" name="maisu" min="1" max='.$result2['Sheets'].' ">');
 							print('</td>');
 							print('<td>');
 							print('<input class="btn red darken-2 right" type="submit" value="削除">');
@@ -141,8 +141,12 @@
 					}
 					print('</tbody>');
 					print('</table>');
-					print('合計'.$price.'円です。');
-					print('<a href="qr.php"><input class="btn" type="submit" value="NEXT">');
+					print('<div class="center">');
+					print('<br>合計'.$price.'円です。<br><br>');
+					print('<a href="index.php"><input class="btn" type="submit" value="戻る"></a>');
+					print('　');
+					print('<a href="qr.php"><input class="btn" type="submit" value="NEXT"></a>');
+					print('</div>');
 					?>
 			</div>
 		</div>
