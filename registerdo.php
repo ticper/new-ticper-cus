@@ -1,4 +1,5 @@
 <?php 
+	session_start();
 	// コンフィグを導入
 	require_once('config/config.php');
 	
@@ -39,7 +40,7 @@
 		if($s_userid == $result['UserID'] and password_verify($s_password, $result['Password'])) {
 		
 			// セッション
-			session_start();
+			
 			$_SESSION['UserID'] = $s_userid;
 			$_SESSION['UserName'] = $s_username;
 			$logMessage = "アカウントを作成";

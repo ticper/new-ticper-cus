@@ -1,5 +1,9 @@
 <?php
     session_start();
+    if(isset($_SESSION['UserID']) == ''){
+        print('<script>alert("ログインしてからアクセスしてください。")</script>');
+        print('<script>location.href = "index.php";</script>');
+    }
     //飛んできた情報を格納する
     $userid = $_SESSION['UserID'];
     $foodid = $_POST['foodid'];
