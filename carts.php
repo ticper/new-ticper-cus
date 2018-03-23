@@ -16,7 +16,7 @@
 		
 		<!-- レスポンシブデザイン -->
 		<meta name="vieport" content="width=device-width,initial-scale=1.0/">
-		
+
 		<!-- ページタイトル -->
 		<title>Ticper</title>
 		
@@ -139,12 +139,22 @@
 					}
 					print('</tbody>');
 					print('</table>');
-					print('<div class="center">');
-					print('<br>合計'.$price.'円です。<br><br>');
-					print('<a href="index.php"><input class="btn" type="submit" value="戻る"></a>');
-					print('　');
-					print('<a href="qr.php"><input class="btn" type="submit" value="NEXT"></a>');
-					print('</div>');
+				
+					if($price != 0){
+				
+						print('<div class="center">');
+						print('<br><h6>合計'.$price.'円です。</h6><br>');
+						print('<a href="index.php"><input class="btn" type="submit" value="戻る"></a>');
+						print('　');
+						print('<a href="qr.php"><input class="btn" type="submit" value="NEXT"></a>');
+						print('</div>');
+
+					} else {
+
+						print('<div class="center">');
+						print('<br><h5>カートの中身が空です。</h5><br>');
+						print('<a href="index.php"><input class="btn" type="submit" value="戻る"></a>');
+					}
 				?>
 			</div>
 		</div>
