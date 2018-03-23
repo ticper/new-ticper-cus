@@ -32,7 +32,7 @@
 		$result = mysqli_fetch_assoc($sql);
 
 		//追加した量が在庫を超えていたら弾く
-		if ($s_stock['FoodStock'] > $result['Sheets'] + $s_maisu){		
+		if ($s_stock['FoodStock'] >= $result['Sheets'] + $s_maisu){		
 		
 		//カートチェック
 			if($result['Sheets'] == ''){
