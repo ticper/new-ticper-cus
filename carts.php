@@ -105,7 +105,6 @@
 					print('</tr>');
 					print('</thead>');
 					print('<tbody>');
-
 					$sql = mysqli_query($db_link,"SELECT * FROM tp_food");
 					$price = 0;
 					while ($result =  mysqli_fetch_assoc($sql)) {
@@ -137,7 +136,6 @@
 							print('</tr>');
 							$price = $price + ($result['FoodPrice'] * $result2['Sheets']);
 						}
-
 					}
 					print('</tbody>');
 					print('</table>');
@@ -147,7 +145,7 @@
 					print('　');
 					print('<a href="qr.php"><input class="btn" type="submit" value="NEXT"></a>');
 					print('</div>');
-					?>
+				?>
 			</div>
 		</div>
 	</body>
