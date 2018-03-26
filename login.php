@@ -66,17 +66,18 @@
 				<div class="col s12">
 					<h2>ログイン</h2>
 					<p>アカウント情報を入力してください。</p>
+					<p>全角文字は入力できません。</p>
 				</div>
 			</div>
 			<div class="row">
 				<form class="col s12" action="logindo.php" method="POST">
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="userid" name="userid" class="validate" type="text" required>
+							<input id="userid" name="userid" class="validate" type="text" onKeyup="this.value=this.value.replace(//[^A-Z^a-z\d\-]+/i,'')" onblur="this.value=this.value.replace(/[^A-Z^a-z\d\-]+/i,'')" required>
 							<label for="userid">ユーザID</label>
 						</div>
 						<div class="input-field col s12">
-							<input id="password" name="password" class="validate" type="password" required>
+							<input id="password" name="password" class="validate" type="password" onKeyup="this.value=this.value.replace(//[^A-Z^a-z\d\-]+/i,'')" onblur="this.value=this.value.replace(/[^A-Z^a-z\d\-]+/i,'')" required>
 							<label for="password">パスワード</label>
 						</div>
 						<div class="input-field col s12">
