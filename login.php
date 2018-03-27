@@ -73,11 +73,11 @@
 				<form class="col s12" action="logindo.php" method="POST">
 					<div class="row">
 						<div class="input-field col s12">
-							<input id="userid" name="userid" class="validate" type="text" onKeyup="this.value=this.value.replace(//[^A-Z^a-z\d\-]+/i,'')" onblur="this.value=this.value.replace(/[^A-Z^a-z\d\-]+/i,'')" required>
+							<input id="userid" name="userid" class="validate" type="text" onKeyup="this.value=this.value.replace(//[^-_@+*;:#$%&^A-Z^a-z^0-9]+/i,'')" onblur="this.value=this.value.replace(/[^-_@+*;:#$%&^A-Z^a-z^0-9]+/i,'')" required>
 							<label for="userid">ユーザID</label>
 						</div>
 						<div class="input-field col s12">
-							<input id="password" name="password" class="validate" type="password" onKeyup="this.value=this.value.replace(//[^A-Z^a-z\d\-]+/i,'')" onblur="this.value=this.value.replace(/[^A-Z^a-z\d\-]+/i,'')" required>
+							<input id="password" name="password" class="validate" type="password" onKeyup="this.value=this.value.replace(//[^-_@+*;:#$%&^A-Z^a-z^0-9]+/i,'')" onblur="this.value=this.value.replace(/[^-_@+*;:#$%&^A-Z^a-z^0-9]+/i,'')" required>
 							<label for="password">パスワード</label>
 						</div>
 						<div class="input-field col s12">
