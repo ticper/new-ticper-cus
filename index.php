@@ -137,22 +137,22 @@
 						print('</div>');
 					}
 				?>
-				<div class="col s12 m4">
-					<div class="card">
-						<div class="card-image">
-							<img src="img/twitter.png">
-						</div>
-						<div class="card-content">
-							<div class="chip">
-								<p>0円</p>
+				<div class="row">
+					<div class="col s12 m4">
+						<div class="card">
+							<div class="card-image">
+								<img src="img/twitter.png">
 							</div>
-							<p>このページをtwitterで共有する</p>
-						</div>
-						<div class="card-action">
-							<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-						</div>
-					</div>
-				</div>
+							<div class="card-content">
+								<p>このページをTwitterで共有する。</p>
+      						</div>
+      						<div class="card-action">
+      							<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+      							<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+      						</div>
+      					</div>
+      				</div>
+      			</div>
 			</div>
 		</div>
 	</body>
