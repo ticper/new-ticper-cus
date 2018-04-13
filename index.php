@@ -80,12 +80,14 @@
 				<?php
 					require_once('config/config.php');
 					$sql = mysqli_query($db_link,"SELECT * FROM tp_org");
+					print('<div class="top">');
 					print('<h4>団体一覧</h4>');
 					print('<ul>');
 					while($result = mysqli_fetch_assoc($sql)){
 						print('<li><a href="#'.$result['OrgID'].'">・'.$result['OrgName'].'</a></li>');
 					}
 					print('</ul>');
+					print('</div>');
 				?>
 				<?php
 					require_once('config/config.php');
@@ -101,7 +103,7 @@
 						$jun = 0;
 						print('<div class="row">');
 						while ($result2 = mysqli_fetch_assoc($sql2)) {
-							print('<div class="col s12 m4">');
+							print('<div class="col s12 m5">');
 							print('<div class="card">');
 							print('<div class="card-image">');
 							print('<img src="img/'.$result2['FoodID'].'.png">');
@@ -128,17 +130,13 @@
 							}
 							print('</div>');
 							print('</div>');
-							print('</div>');
-							$jun = $jun + 1;
-							if($jun == 3) {
-								print('</div><div class="row">');
-							}
+							print('</div>');							
 						}
 						print('</div>');
 					}
 				?>
 				<div class="row">
-					<div class="col s12 m4">
+					<div class="col s12 m5">
 						<div class="card">
 							<div class="card-image">
 								<img src="img/twitter.png">
