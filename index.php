@@ -100,7 +100,6 @@
 						print('<h5>食品一覧</h5>');
 						$OrgID = $result['OrgID'];
 						$sql2 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE OrgID = '$OrgID'");
-						$jun = 0;
 						print('<div class="row">');
 						while ($result2 = mysqli_fetch_assoc($sql2)) {
 							print('<div class="col s12 m5">');
