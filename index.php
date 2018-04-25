@@ -1,5 +1,8 @@
 <?php
 	session_start();
+	if(isset($_SESSION['UserID']) == ''){
+		session_destroy();
+	}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
