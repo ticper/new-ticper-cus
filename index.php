@@ -108,7 +108,7 @@
 							print('<div class="col s12 m5">');
 							print('<div class="card">');
 							print('<div class="card-image">');
-							print('<img src="img/'.$result2['FoodID'].'.png">');
+							print('<img src="'.$img_link.''.$result2['FoodID'].'.png">');
 							print('<span class="card-title">'.$result2['FoodName'].'</span>');
 							print('</div>');
 							print('<div class="card-content">');
@@ -141,7 +141,9 @@
 					<div class="col s12 m5">
 						<div class="card">
 							<div class="card-image">
-								<img src="img/twitter.png">
+								<?php
+									print('<img src="'.$img_link.'/twitter.png">');
+								?>
 							</div>
 							<div class="card-content">
 								<p>このページをTwitterで共有する。</p>
