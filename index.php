@@ -38,6 +38,18 @@
 		</script>
 	</head>
 	<body>
+		<ul id="user-menu1" class="dropdown-content">
+			<li><a href="viewticket.php">チケットページ</a></li>
+			<li class="divider" tabindex="-1"></li>
+			<li><a href="carts.php">カートを見る</a></li>
+		</ul>
+
+		<ul id="user-menu2" class="dropdown-content #b9f6ca green accent-1">
+			<li><a href="viewticket.php">チケットページ</a></li>
+			<li class="divider" tabindex="-1"></li>
+			<li><a href="carts.php">カートを見る</a></li>
+		</ul>
+
 		<nav class="light-blue darken-4">
 			<div class="container">
 				<div class="nav-wrapper">
@@ -49,8 +61,7 @@
 								print('<li><a href="login.php">ログイン</a></li>');
 								print('<li><a href="u_register.php">新規登録</a></li>');
 							}else{
-								print('<li><a href="#!">'.$_SESSION['UserName'].'さん</a></li>');
-								print('<li><a href="carts.php">カートを見る</a></li>');
+								print('<li><a href="#!" class="dropdown-trigger1" data-target="user-menu1">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
 								print('<li><a href="logout.php">ログアウト</a></li>');
 							}
 						?>
@@ -65,13 +76,26 @@
 					print('<li><a href="login.php">ログイン</a></li>');
 					print('<li><a href="u_register.php">新規登録</a></li>');
 				}else{
-					print('<li><a href="#!">'.$_SESSION['UserName'].'さん</a></li>');
-					print('<li><a href="carts.php">カートを見る</a></li>');
+					print('<li><a href="#!" class="dropdown-trigger2" data-target="user-menu2">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
 					print('<li><a href="logout.php">ログアウト</a></li>');
 				}
 			?>
 		</ul>
 		
+		<script>
+			$(document).ready(function(){
+				$('.sidenav').sidenav();
+				$('.dropdown-trigger1').dropdown();
+			});
+		</script>
+
+		<script>
+			$(document).ready(function(){
+				$('.sidenav').sidenav();
+				$('.dropdown-trigger2').dropdown();
+			});
+		</script>
+
 		<script>
 			$(document).ready(function(){
 				$('.sidenav').sidenav();
