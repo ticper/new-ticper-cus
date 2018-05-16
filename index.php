@@ -166,7 +166,7 @@
 						<div class="card">
 							<div class="card-image">
 								<?php
-									print('<img src="'.$img_link.'/twitter.png">');
+									print('<img src="'.$img_link.'twitter.png">');
 								?>
 							</div>
 							<div class="card-content">

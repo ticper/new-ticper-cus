@@ -104,7 +104,7 @@
               $UserID = $_SESSION['UserID'];
     					$now = 0;
     					$goukei = 0;
-    					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID'");
+    					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
     					while ($result = mysqli_fetch_assoc($sql)) {
     						print('<div class="col s12 m3">');
     						print('<img src="https://api.qrserver.com/v1/create-qr-code/?data='.$result['TicketACode'].'&size=200x200" alt="QRコード" /><br>');
@@ -117,7 +117,6 @@
     						print('<b>'.$result2['FoodName'].'</b>('.$result['Sheets'].'枚)<br>');
     						print($result3['OrgName'].'<br>('.$result3['OrgPlace'].'で交換)<br>');
     						print('<b>'.$result2['FoodPrice'].'円</b>');
-    						$goukei = $goukei + ($result2['FoodPrice'] * $result['Sheets']);
     						print('</div>');
     						$now = $now + 1;
     						if ($now == 3) {
@@ -127,7 +126,6 @@
     				?>
     				
    	 			</div>
-   	 			<p>合計: <b><?php print($goukei); ?>円</b></p>
     		</div>
     	</div>
     </body>
