@@ -129,6 +129,20 @@
 						print('<h4>'.$result['OrgName'].'</h4>');
 						print('</div>');
 						print('<h6>'.$result['OrgPlace'].'</h6>');
+						$orgid = $result['OrgID'];
+						$sql3 = mysqli_query($db_link, "SELECT Status FROM tp_org WHERE OrgID = '$orgid'");
+						$result3 = mysqli_fetch_assoc($sql3);
+						print("<h6>混雑度:");
+						if($result3['Status'] == 0) {
+							print("空いている");
+						} elseif ($result3['Status'] == 1) {
+							print("少し混んでいる");
+						} elseif ($result3['Status'] == 2) {
+							print("結構混んでいる");
+						} elseif ($result3['Status'] == 3) {
+						print("超混んでいる");
+						}
+						print("</h6>");
 						print('<h5>食品一覧</h5>');
 						$OrgID = $result['OrgID'];
 						$sql2 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE OrgID = '$OrgID'");

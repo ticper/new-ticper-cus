@@ -106,5 +106,47 @@
 				$('.sidenav').sidenav();
 			});
 		</script>
+		<div class="container">
+			<div class="col s12">
+				<h4>領収書</h4>
+				<table>
+					<thead>
+						<tr>
+							<th>商品名</th>
+							<th>値段</th>
+							<th>枚数</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							require_once('config/config.php');
+							$userid = $_SESSION['UserID'];
+							$sql = mysqli_query($db_link,"SELECT FoodID,Sheets FROM tp_ticket WHERE UserID = '$userid'");
+							$goukei = 0;
+							while($result = mysqli_fetch_assoc($sql)){
+								$foodid = $result['FoodID'];
+								$sql2 = mysqli_query($db_link,"SELECT FoodName,FoodPrice FROM tp_food WHERE FoodID = '$foodid'");
+								$result2 = mysqli_fetch_assoc($sql2);
+								print('<tr>');
+								print('<td>');
+								print($result2['FoodName']);
+								print('</td>');
+								print('<td>');
+								print($result2['FoodPrice']);
+								print('</td>');
+								print('<td>');
+								print($result['Sheets']);
+								print('</td>');
+								$goukei = $goukei + $result2['FoodPrice'] * $result['Sheets'];
+							}
+
+						?>
+					</tbody>
+				</table>
+				<?php
+					print('<p style="text-align:right;">上記商品代として、'.$goukei.'円を領収いたしました。</p>');
+				?>
+			</div>
+		</div>
 	</body>
 </html>
