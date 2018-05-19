@@ -110,25 +110,29 @@
     					$UserID = $_SESSION['UserID'];
     					$now = 0;
        					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
-   						while ($result = mysqli_fetch_assoc($sql)) {
-	   						print('<div class="col">');
-    						print('<img style="margin: 10px 10px 10px;"src="https://api.qrserver.com/v1/create-qr-code/?data='.$result['TicketACode'].'&size=200x200" alt="QRコード" /><br>');
-    						$foodid = $result['FoodID'];
-    						$sql2 = mysqli_query($db_link, "SELECT FoodName, OrgID, FoodPrice FROM tp_food WHERE FoodID = '$foodid'");
-    						$result2 = mysqli_fetch_assoc($sql2);
-    						$OrgID = $result2['OrgID'];
-    						$sql3 = mysqli_query($db_link, "SELECT OrgName, OrgPlace FROM tp_org WHERE OrgID = '$OrgID'");
-    						$result3 = mysqli_fetch_assoc($sql3);
-   		 					print('<b>'.$result2['FoodName'].'</b>('.$result['Sheets'].'枚)<br>');
-    						print($result3['OrgName'].'<br>('.$result3['OrgPlace'].'で交換)<br>');
-    						print('<b>'.$result2['FoodPrice'].'円</b>');
-    						print('</div>');
-    						$now = $now + 1;
-   							if ($now == 3) {
+	   					while ($result = mysqli_fetch_assoc($sql)) {
+		   					if($result['TicketACode'] != '0'){
+			   					print('<div class="col">');
+	    						print('<img style="margin: 10px 10px 10px;"src="https://api.qrserver.com/v1/create-qr-code/?data='.$result['TicketACode'].'&size=200x200" alt="QRコード" /><br>');
+    							$foodid = $result['FoodID'];
+    							$sql2 = mysqli_query($db_link, "SELECT FoodName, OrgID, FoodPrice FROM tp_food WHERE FoodID = '$foodid'");
+    							$result2 = mysqli_fetch_assoc($sql2);
+   								$OrgID = $result2['OrgID'];
+   								$sql3 = mysqli_query($db_link, "SELECT OrgName, OrgPlace FROM tp_org WHERE OrgID = '$OrgID'");
+   								$result3 = mysqli_fetch_assoc($sql3);
+   								print('<b>'.$result2['FoodName'].'</b>('.$result['Sheets'].'枚)<br>');
+    							print($result3['OrgName'].'<br>('.$result3['OrgPlace'].'で交換)<br>');
+   								print('<b>'.$result2['FoodPrice'].'円</b>');
+    							print('</div>');
+    							$now = $now + 1;
+   								if ($now == 3) {
     								print('</div><div class="row">');
     								$now = 0;
-    						}
-    					}
+   								}
+   							} else {
+    							print('<h4>未使用の食券はありません</h4>');
+	    					}
+   						}
     				?>	
    	 			</div>
     		</div>
