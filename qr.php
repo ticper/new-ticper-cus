@@ -43,12 +43,18 @@
 			<li><a href="viewticket.php">チケットページ</a></li>
 			<li class="divider" tabindex="-1"></li>
 			<li><a href="carts.php">カートを見る</a></li>
+			<li class="divider" tabindex="-1"></li>
+			<li><a href="receipt.php">領収書</a></li>
+			<li class="divider" tabindex="-1"></li>
+			<li><a href="logout.php" class="red-text">ログアウト</a></li>
 		</ul>
 
-		<ul id="user-menu2" class="dropdown-content #b9f6ca green accent-1">
-			<li><a href="viewticket.php">チケットページ</a></li>
+		<ul id="user-menu2" class="dropdown-content">
+			<li><a href="viewticket.php" class=" teal-text text-lighten-1">チケットページ</a></li>
 			<li class="divider" tabindex="-1"></li>
-			<li><a href="carts.php">カートを見る</a></li>
+			<li><a href="carts.php" class=" teal-text text-lighten-1">カートを見る</a></li>
+			<li class="divider" tabindex="-1">
+			<li><a href="receipt.php" class=" teal-text text-lighten-1">領収書</a></li>
 		</ul>
 
 		<nav class="light-blue darken-4">
@@ -62,8 +68,7 @@
 								print('<li><a href="login.php">ログイン</a></li>');
 								print('<li><a href="u_register.php">新規登録</a></li>');
 							}else{
-								print('<li><a href="#!" class="dropdown-trigger1" data-target="user-menu1">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
-								print('<li><a href="logout.php">ログアウト</a></li>');
+								print('<li><a class="dropdown-trigger1" data-target="user-menu1">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
 							}
 						?>
 					</ul>
@@ -77,8 +82,9 @@
 					print('<li><a href="login.php">ログイン</a></li>');
 					print('<li><a href="u_register.php">新規登録</a></li>');
 				}else{
-					print('<li><a href="#!" class="dropdown-trigger2" data-target="user-menu2">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
-					print('<li><a href="logout.php">ログアウト</a></li>');
+					print('<li><a class="dropdown-trigger2" data-target="user-menu2">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
+					print('<li><div class="divider"></div></li>');
+					print('<li><a href="logout.php" class="red-text" style="margin-top: 2px;">ログアウト</a></li>');
 				}
 			?>
 		</ul>

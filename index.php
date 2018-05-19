@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	if(isset($_SESSION['UserID']) == ''){
-		session_destroy();
 	}
 ?>
 <!DOCTYPE html>
@@ -42,12 +41,18 @@
 			<li><a href="viewticket.php">チケットページ</a></li>
 			<li class="divider" tabindex="-1"></li>
 			<li><a href="carts.php">カートを見る</a></li>
+			<li class="divider" tabindex="-1"></li>
+			<li><a href="receipt.php">領収書</a></li>
+			<li class="divider" tabindex="-1"></li>
+			<li><a href="logout.php" class="red-text">ログアウト</a></li>
 		</ul>
 
-		<ul id="user-menu2" class="dropdown-content #b9f6ca green accent-1">
-			<li><a href="viewticket.php">チケットページ</a></li>
+		<ul id="user-menu2" class="dropdown-content">
+			<li><a href="viewticket.php" class=" teal-text text-lighten-1">チケットページ</a></li>
 			<li class="divider" tabindex="-1"></li>
-			<li><a href="carts.php">カートを見る</a></li>
+			<li><a href="carts.php" class=" teal-text text-lighten-1">カートを見る</a></li>
+			<li class="divider" tabindex="-1">
+			<li><a href="receipt.php" class=" teal-text text-lighten-1">領収書</a></li>
 		</ul>
 
 		<nav class="light-blue darken-4">
@@ -61,8 +66,7 @@
 								print('<li><a href="login.php">ログイン</a></li>');
 								print('<li><a href="u_register.php">新規登録</a></li>');
 							}else{
-								print('<li><a href="#!" class="dropdown-trigger1" data-target="user-menu1">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
-								print('<li><a href="logout.php">ログアウト</a></li>');
+								print('<li><a class="dropdown-trigger1" data-target="user-menu1">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
 							}
 						?>
 					</ul>
@@ -76,8 +80,9 @@
 					print('<li><a href="login.php">ログイン</a></li>');
 					print('<li><a href="u_register.php">新規登録</a></li>');
 				}else{
-					print('<li><a href="#!" class="dropdown-trigger2" data-target="user-menu2">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
-					print('<li><a href="logout.php">ログアウト</a></li>');
+					print('<li><a class="dropdown-trigger2" data-target="user-menu2">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
+					print('<li><div class="divider"></div></li>');
+					print('<li><a href="logout.php" class="red-text" style="margin-top: 2px;">ログアウト</a></li>');
 				}
 			?>
 		</ul>
@@ -124,20 +129,6 @@
 						print('<h4>'.$result['OrgName'].'</h4>');
 						print('</div>');
 						print('<h6>'.$result['OrgPlace'].'</h6>');
-						$orgid = $result['OrgID'];
-						$sql3 = mysqli_query($db_link, "SELECT Status FROM tp_org WHERE OrgID = '$orgid'");
-						$result3 = mysqli_fetch_assoc($sql3);
-						print("<h6>混雑度:");
-                		if($result3['Status'] == 0) {
-                   	 		print("空いている");
-                		} elseif ($result3['Status'] == 1) {
-                    		print("少し混んでいる");
-                		} elseif ($result3['Status'] == 2) {
-                    		print("結構混んでいる");
-                		} elseif ($result3['Status'] == 3) {
-                    		print("超混んでいる");
-                		}
-                		print("</h6>");
 						print('<h5>食品一覧</h5>');
 						$OrgID = $result['OrgID'];
 						$sql2 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE OrgID = '$OrgID'");
