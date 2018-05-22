@@ -200,14 +200,14 @@
 								<?php
 									$sql = mysqli_query($db_link, "SELECT Status FROM tp_org WHERE OrgID = '0'");
 									$result = mysqli_fetch_assoc($sql);
-									print("<p>混雑度:");
-									if($result3['Status'] == 0) {
+									print('<p>混雑度:');
+									if($result['Status'] == 0) {
 										print("空いている");
-									} elseif ($result3['Status'] == 1) {
+									} elseif ($result['Status'] == 1) {
 										print("少し混んでいる");
-									} elseif ($result3['Status'] == 2) {
+									} elseif ($result['Status'] == 2) {
 										print("結構混んでいる");
-									} elseif ($result3['Status'] == 3) {
+									} elseif ($result['Status'] == 3) {
 										print("超混んでいる");
 									}
 									print('<p>')
