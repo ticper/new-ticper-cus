@@ -10,7 +10,15 @@
   $img_link = ('http://localhost/ticper/new-ticper-booth/img/');
 
   if (mysqli_connect_errno()) {
-    printf("Connect Failed:".mysqli_connect_error());
-    exit();
+    print('<!DOCTYPE HTML>');
+    print('<html charset="UTF-8">');
+    print('<head>');
+    print('<meta name="viewport" content="width=device-width,initial-scale=1.0">');
+    print('<title>サーバーに問題が発生しました。</title>');
+    print('<style>.midashi {position: fixed; width: 100%; height: 100%; top: 0%; left: 0%; background-image:url(img/server_connection_failed.jpg); background-repeat: no-repeat; background-size: 100% 100%; background-position:center; color: white;}</style>');
+    print('</head>');
+    print('<body>');
+    print('<div class="midashi">');
+    print('<div align="center"><br><h1><b>サーバに問題が発生しました。</b></h1></div></div></body></html>');
   }
 ?>
