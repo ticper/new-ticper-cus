@@ -77,6 +77,7 @@
 				if(isset($_SESSION['UserID']) == ''){
 					print('<li><a href="login.php">ログイン</a></li>');
 					print('<li><a href="u_register.php">新規登録</a></li>');
+					print('<script>M.toast({html: "ログインまたは新規登録を行ってください。"})</script>');
 				}else{
 					print('<li><a class="dropdown-trigger2" data-target="user-menu2">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
 					print('<li><div class="divider"></div></li>');
