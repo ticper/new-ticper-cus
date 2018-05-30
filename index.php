@@ -237,5 +237,10 @@
       			</div>
 			</div>
 		</div>
+		<div class="fixed-action-btn">
+			<a href="carts.php" class="btn-floating btn-large red">
+				<i class="large material-icons">shopping_cart</i>
+			</a>
+		</div>
 	</body>
 </html>
