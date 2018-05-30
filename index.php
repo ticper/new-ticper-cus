@@ -164,9 +164,23 @@
 								print('<div class="chip">');
 								print('<p>'.$result2['FoodPrice'].'円</p>');
 								print('</div>');
-								print('<div class="chip">');
-								print('<p>残り'.$result2['FoodStock'].'個</p>');
-								print('</div>');
+								if($result2['FoodStock'] == 0) {
+									print('<div class="chip red">');
+									print('<p style="color: white;"><b>売り切れました。</b></p>');
+									print('</div>');
+								} elseif($result2['FoodStock'] <= 10) {
+									print('<div class="chip red">');
+									print('<p style="color: white;"><b>あと少しです！</b></p>');
+									print('</div>');
+								} elseif ($result2['FoodStock'] < 30) {
+									print('<div class="chip yellow">');
+									print('<p><b>まだあります！</b></p>');
+									print('</div>');	
+								} elseif ($result2['FoodStock'] >= 30) {
+									print('<div class="chip green">');
+									print('<p style="color: white;"><b>順調に売れています！</b></p>');
+									print('</div>');
+								}
 								print('<p><br>'.$result2['FoodDescription'].'</p>');
 								print('</div>');
 								print('<div class="card-action">');
