@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if(isset($_SESSION['UserID']) == ''){
+	if(isset($_SESSION['C_UserID']) == ''){
 		print('<script>alert("ログインしてからアクセスしてください。")</script>');
 		print('<script>location.href = "index.php";</script>');
 	}
@@ -64,7 +64,7 @@
 					<a href="#!" data-target="mobilemenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
 						<?php
-							if(isset($_SESSION['UserID']) == ''){
+							if(isset($_SESSION['C_UserID']) == ''){
 								print('<li><a href="login.php">ログイン</a></li>');
 								print('<li><a href="u_register.php">新規登録</a></li>');
 							}else{
@@ -78,7 +78,7 @@
 		
 		<ul class="sidenav" id="mobilemenu">
 			<?php
-				if(isset($_SESSION['UserID']) == ''){
+				if(isset($_SESSION['C_UserID']) == ''){
 					print('<li><a href="login.php">ログイン</a></li>');
 					print('<li><a href="u_register.php">新規登録</a></li>');
 				}else{
@@ -138,7 +138,7 @@
 					$sql = mysqli_query($db_link,"SELECT * FROM tp_food");
 					$price = 0;
 					while ($result =  mysqli_fetch_assoc($sql)) {
-						$userid = $_SESSION['UserID'];
+						$userid = $_SESSION['C_UserID'];
 						$foodid = $result['FoodID'];
 						$sql2 = mysqli_query($db_link,"SELECT * FROM tp_cust_carts WHERE UserID = '$userid' AND FoodID = '$foodid'");
 						$result2 = mysqli_fetch_assoc($sql2);
@@ -155,7 +155,7 @@
 							print('</td>');
 							print('<td>');
 							print('<form action="deletefood.php" method="POST">');
-							print('<input type="hidden" name="userid" value="'.$_SESSION['UserID'].'">');
+							print('<input type="hidden" name="userid" value="'.$_SESSION['C_UserID'].'">');
 							print('<input type="hidden" name="foodid" value="'.$result2['FoodID'].'">');
 							print('<input required placeholder="削除する枚数" type="number" name="maisu" min="1" max='.$result2['Sheets'].' ">');
 							print('</td>');

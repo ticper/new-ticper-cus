@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if(isset($_SESSION['UserID']) == ''){
+	if(isset($_SESSION['C_UserID']) == ''){
 		print('<script>alert("不正なリクエスト");location.href = "index.php";</script>');
 	
 	}
@@ -64,7 +64,7 @@
 					<a href="#!" data-target="mobilemenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
 						<?php
-							if(isset($_SESSION['UserID']) == ''){
+							if(isset($_SESSION['C_UserID']) == ''){
 								print('<li><a href="login.php">ログイン</a></li>');
 								print('<li><a href="u_register.php">新規登録</a></li>');
 							}else{
@@ -78,7 +78,7 @@
 		
 		<ul class="sidenav" id="mobilemenu">
 			<?php
-				if(isset($_SESSION['UserID']) == ''){
+				if(isset($_SESSION['C_UserID']) == ''){
 					print('<li><a href="login.php">ログイン</a></li>');
 					print('<li><a href="u_register.php">新規登録</a></li>');
 				}else{
@@ -112,7 +112,7 @@
 		<div class="container">
 			<div class="col s12">
 				<?php
-					$userid = $_SESSION['UserID'];
+					$userid = $_SESSION['C_UserID'];
 					print('<div class="center">');
 					print('<br><br><img src="https://api.qrserver.com/v1/create-qr-code/?data='.$userid.'&size=200x200" alt="QRコード"/><br>');
 					print('<br>この画面を受付で表示してください。<br><br>');

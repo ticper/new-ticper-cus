@@ -60,7 +60,7 @@
 					<a href="#!" data-target="mobilemenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
 						<?php
-							if(isset($_SESSION['UserID']) == ''){
+							if(isset($_SESSION['C_UserID']) == ''){
 								print('<li><a href="login.php">ログイン</a></li>');
 								print('<li><a href="u_register.php">新規登録</a></li>');
 							}else{
@@ -74,7 +74,7 @@
 		
 		<ul class="sidenav" id="mobilemenu">
 			<?php
-				if(isset($_SESSION['UserID']) == ''){
+				if(isset($_SESSION['C_UserID']) == ''){
 					print('<li><a href="login.php">ログイン</a></li>');
 					print('<li><a href="u_register.php">新規登録</a></li>');
 					print('<script>M.toast({html: "ログインまたは新規登録を行ってください。"})</script>');

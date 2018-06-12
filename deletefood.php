@@ -1,11 +1,11 @@
 <?php
     session_start();
-    if(isset($_SESSION['UserID']) == ''){
+    if(isset($_SESSION['C_UserID']) == ''){
         print('<script>alert("ログインしてからアクセスしてください。")</script>');
         print('<script>location.href = "index.php";</script>');
     }
     //飛んできた情報を格納する
-    $userid = $_SESSION['UserID'];
+    $userid = $_SESSION['C_UserID'];
     $foodid = $_POST['foodid'];
     $maisu = $_POST['maisu'];
 

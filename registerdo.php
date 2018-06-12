@@ -41,7 +41,7 @@
 		
 			// セッション
 			
-			$_SESSION['UserID'] = $s_userid;
+			$_SESSION['C_UserID'] = $s_userid;
 			$_SESSION['UserName'] = $s_username;
 			$logMessage = "アカウントを作成";
 			$sql = mysqli_query($db_link, "INSERT INTO tp_log ('Time', 'Action', 'CustUserID') VALUES (CURRENT_TIMESTAMP, '$logMessage', '$s_userid')");

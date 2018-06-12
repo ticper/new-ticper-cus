@@ -6,7 +6,7 @@
 	session_start();
 	
 	//ログインチェック
-	if(isset($_SESSION['UserID']) == ''){
+	if(isset($_SESSION['C_UserID']) == ''){
 		print('<script>alert("カートに食品を追加する前にログインしてください。");location.href = "index.php";</script>');
 	
 	} else {
@@ -14,7 +14,7 @@
 		//index.phpから投げた内容をローカル変数に入れる
 		$foodid = $_POST['FoodID'];
 		$maisu = $_POST['maisu'];
-		$userid = $_SESSION['UserID'];
+		$userid = $_SESSION['C_UserID'];
 		
 		//SQLの特殊な文字を抜き取る
 		$e_foodid = $db_link -> real_escape_string($foodid);

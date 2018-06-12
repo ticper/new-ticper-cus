@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if(isset($_SESSION['UserID']) == ''){
+	if(isset($_SESSION['C_UserID']) == ''){
 	}
 ?>
 <!DOCTYPE html>
@@ -62,7 +62,7 @@
 					<a href="#!" data-target="mobilemenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 					<ul class="right hide-on-med-and-down">
 						<?php
-							if(isset($_SESSION['UserID']) == ''){
+							if(isset($_SESSION['C_UserID']) == ''){
 								print('<li><a href="login.php">ログイン</a></li>');
 								print('<li><a href="u_register.php">新規登録</a></li>');
 							}else{
@@ -76,7 +76,7 @@
 		
 		<ul class="sidenav" id="mobilemenu">
 			<?php
-				if(isset($_SESSION['UserID']) == ''){
+				if(isset($_SESSION['C_UserID']) == ''){
 					print('<li><a href="login.php">ログイン</a></li>');
 					print('<li><a href="u_register.php">新規登録</a></li>');
 				}else{
@@ -120,7 +120,7 @@
 					<tbody>
 						<?php
 							require_once('config/config.php');
-							$userid = $_SESSION['UserID'];
+							$userid = $_SESSION['C_UserID'];
 							$sql = mysqli_query($db_link,"SELECT FoodID,Sheets FROM tp_ticket WHERE UserID = '$userid'");
 							$goukei = 0;
 							while($result = mysqli_fetch_assoc($sql)){

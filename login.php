@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	if(isset($_SESSION['UserID']) != ''){
+	if(isset($_SESSION['C_UserID']) != ''){
 		print('<script>alert("既にログインしています。一旦ログアウトしてからアクセスしてください。")</script>');
 		print('<script>location.href = "index.php";</script>');
 	}
