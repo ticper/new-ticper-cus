@@ -47,7 +47,7 @@
 			$sql = mysqli_query($db_link, "INSERT INTO tp_log ('Time', 'Action', 'CustUserID') VALUES (CURRENT_TIMESTAMP, '$logMessage', '$s_userid')");
 			print('<script>location.href = "index.php";</script>');
 		} else {
-			print('<script>alert("エラーが発生しました。もういちどやり直してください。"); location.href = "u_register.php"; </script>');
+			print('<script>alert("エラーが発生しました。もう一度やり直してください。"); location.href = "u_register.php"; </script>');
 		}
 	}
 ?>

@@ -1,5 +1,8 @@
 <?php
+	// セッションを開始する
 	session_start();
+
+	// ユーザIDが存在しないときに表示
 	if(isset($_SESSION['C_UserID']) == ''){
 		print('<script>alert("ログインしてからアクセスしてください。")</script>');
 		print('<script>location.href = "index.php";</script>');

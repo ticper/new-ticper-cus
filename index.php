@@ -36,9 +36,9 @@
 	</head>
 	<body>
 		<ul id="user-menu1" class="dropdown-content">
-			<li><a href="viewticket.php">チケットページ</a></li>
+			<li><a data-target="modal-viewticket" class="modal-trigger">チケットページ</a></li>
 			<li class="divider" tabindex="-1"></li>
-			<li><a href="carts.php">カートを見る</a></li>
+			<li><a data-target="modal-cart" class="modal-trigger">カートを見る</a></li>
 			<li class="divider" tabindex="-1"></li>
 			<li><a href="receipt.php">領収書</a></li>
 			<li class="divider" tabindex="-1"></li>
@@ -46,9 +46,9 @@
 		</ul>
 
 		<ul id="user-menu2" class="dropdown-content">
-			<li><a href="viewticket.php" class=" teal-text text-lighten-1">チケットページ</a></li>
+			<li><a data-target="modal-viewticket" class="modal-trigger">チケットページ</a></li>
 			<li class="divider" tabindex="-1"></li>
-			<li><a href="carts.php" class=" teal-text text-lighten-1">カートを見る</a></li>
+			<li><a data-target="modal-cart" class="modal-trigger">カートを見る</a></li>
 			<li class="divider" tabindex="-1">
 			<li><a href="receipt.php" class=" teal-text text-lighten-1">領収書</a></li>
 		</ul>
@@ -61,8 +61,8 @@
 					<ul class="right hide-on-med-and-down">
 						<?php
 							if(isset($_SESSION['C_UserID']) == ''){
-								print('<li><a href="login.php">ログイン</a></li>');
-								print('<li><a href="u_register.php">新規登録</a></li>');
+								print('<li><a data-target="modal-login" class="modal-trigger">ログイン</a></li>');
+								print('<li><a data-target="modal-register" class="modal-trigger">新規登録</a></li>');
 							}else{
 								print('<li><a class="dropdown-trigger1" data-target="user-menu1">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
 							}
@@ -75,8 +75,8 @@
 		<ul class="sidenav" id="mobilemenu">
 			<?php
 				if(isset($_SESSION['C_UserID']) == ''){
-					print('<li><a href="login.php">ログイン</a></li>');
-					print('<li><a href="u_register.php">新規登録</a></li>');
+					print('<li><a data-target="modal-login" class="modal-trigger">ログイン</a></li>');
+					print('<li><a data-target="modal-register" class="modal-trigger">新規登録</a></li>');
 					print('<script>alert("ログインまたは新規登録を行ってください。");</script>');
 				}else{
 					print('<li><a class="dropdown-trigger2" data-target="user-menu2">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
@@ -103,6 +103,7 @@
 		<script>
 			$(document).ready(function(){
 				$('.sidenav').sidenav();
+    			$('.modal').modal(); 
 			});
 		</script>
 					
@@ -260,5 +261,164 @@
 				<i class="large material-icons">shopping_cart</i>
 			</a>
 		</div>
+		<div id="modal-login" class="modal">
+    		<div class="modal-content">
+      			<h4>ログイン</h4>
+      			<form action="logindo.php" method="POST">
+					<h5>ログインID</h5>
+					<input type="text" name="userid" class="validate">
+					<h5>パスワード</h5>
+					<input type="password" name="password" class="validate">
+					<button type="submit" class="btn">ログインする</button>
+				</form>
+    		</div>
+    		<div class="modal-footer">
+      			<a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
+    		</div>
+  		</div>
+		<div id="modal-register" class="modal">
+    		<div class="modal-content">
+      			<h4>新規登録</h4>
+      			<form action="registerdo.php" method="POST">
+					<h5>ユーザID</h5>
+					<input type="text" name="userid" class="validate">
+					<h5>ニックネーム</h5>
+					<input type="text" name="username" class="validate">
+					<h5>パスワード</h5>
+					<input type="password" name="password" class="validate">
+					<button type="submit" class="btn">ログインする</button>
+				</form>
+    		</div>
+    		<div class="modal-footer">
+      			<a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
+    		</div>
+  		</div>
+		  <div id="modal-viewticket" class="modal">
+    		<div class="modal-content">
+      			<h4>チケットを表示する</h4>
+      			<?php
+    					require_once('config/config.php');
+    					$UserID = $_SESSION['C_UserID'];
+    					$now = 0;
+       					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
+	   					while ($result = mysqli_fetch_assoc($sql)) {
+			   				print('<div class="col">');
+	    					print('<img style="margin: 10px 10px 10px;"src="https://api.qrserver.com/v1/create-qr-code/?data='.$result['TicketACode'].'&size=200x200" alt="QRコード" /><br>');
+    						$foodid = $result['FoodID'];
+    						$sql2 = mysqli_query($db_link, "SELECT FoodName, OrgID, FoodPrice FROM tp_food WHERE FoodID = '$foodid'");
+   							$result2 = mysqli_fetch_assoc($sql2);
+   							$OrgID = $result2['OrgID'];
+   							$sql3 = mysqli_query($db_link, "SELECT OrgName, OrgPlace FROM tp_org WHERE OrgID = '$OrgID'");
+   							$result3 = mysqli_fetch_assoc($sql3);
+   							print('<b>'.$result2['FoodName'].'</b>('.$result['Sheets'].'枚)<br>');
+    						print($result3['OrgName'].'<br>('.$result3['OrgPlace'].'で交換)<br>');
+   							print('<b>'.$result2['FoodPrice'].'円</b>');
+    						print('</div>');
+    						$now = $now + 1;
+   							if ($now == 3) {
+    							print('</div><div class="row">');
+    							$now = 0;
+   							}
+   						}
+   						$sql = mysqli_query($db_link, "SELECT COUNT(*) AS FoodID FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
+						$result = mysqli_fetch_assoc($sql);
+   						if($result['FoodID'] == '0') {
+   							print('<h5>未使用の食券はありません</h5>');
+   						}
+    				?>	
+    		</div>
+    		<div class="modal-footer">
+      			<a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
+    		</div>
+  		</div>
+		<div id="modal-cart" class="modal">
+    		<div class="modal-content">
+      			<h4>カート</h4>
+      			<?php
+					require_once('config/config.php');
+					print('<table>');
+					print('<thead>');
+					print('<tr>');
+					print('<th>');
+					print('食品名');
+					print('</th>');
+					print('<th>');
+					print('価格');
+					print('</th>');
+					print('<th>');
+					print('枚数');
+					print('</th>');
+					print('<th>');
+					print('オプション');
+					print('</th>');
+					print('<th>');
+					print('削除');
+					print('</th>');
+					print('</tr>');
+					print('</thead>');
+					print('<tbody>');
+					$sql = mysqli_query($db_link,"SELECT * FROM tp_food");
+					$price = 0;
+					while ($result =  mysqli_fetch_assoc($sql)) {
+						$userid = $_SESSION['C_UserID'];
+						$foodid = $result['FoodID'];
+						$sql2 = mysqli_query($db_link,"SELECT * FROM tp_cust_carts WHERE UserID = '$userid' AND FoodID = '$foodid'");
+						$result2 = mysqli_fetch_assoc($sql2);
+						if($result2['Sheets'] != 0){
+							print('<tr>');
+							print('<td>');
+							print($result['FoodName']);
+							print('</td>');
+							print('<td>');
+							print($result['FoodPrice']);
+							print('</td>');
+							print('<td>');
+							print($result2['Sheets']);
+							print('</td>');
+							print('<td>');
+							print('<form action="deletefood.php" method="POST">');
+							print('<input type="hidden" name="userid" value="'.$_SESSION['C_UserID'].'">');
+							print('<input type="hidden" name="foodid" value="'.$result2['FoodID'].'">');
+							print('<input required placeholder="削除する枚数" type="number" name="maisu" min="1" max='.$result2['Sheets'].' ">');
+							print('</td>');
+							print('<td>');
+							print('<input class="btn red darken-2 right" type="submit" value="削除">');
+							print('</form>');
+							print('</td>');
+							print('</tr>');
+							$price = $price + ($result['FoodPrice'] * $result2['Sheets']);
+						}
+					}
+					print('</tbody>');
+					print('</table>');
+				
+					if($price != 0){
+				
+						print('<div class="center">');
+						print('<br><h6>合計'.$price.'円です。</h6><br>');
+						print('　');
+						print('<a href="index.php"><input class="btn" type="submit" value="更新"></a>');
+						print('</div>');
+
+					} else {
+
+						print('<div class="center">');
+						print('<br><h5>カートの中身が空です。</h5><br>');
+						print('<a href="index.php"><input class="btn" type="submit" value="戻る"></a>');
+					}
+
+					$userid = $_SESSION['C_UserID'];
+					print('<div class="center">');
+					print('<br><br><img src="https://api.qrserver.com/v1/create-qr-code/?data='.$userid.'&size=200x200" alt="QRコード"/><br>');
+					print('<br>この画面を受付で表示してください。<br><br>');
+					print('<a href="carts.php"><input class="btn" type="submit" value="BACK"></a>　<a href="viewticket.php"><input class="btn" type="submit" value="NEXT"></a>');
+					print('</div>');
+				?>
+    		</div>
+    		<div class="modal-footer">
+      			<a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
+    		</div>
+  		</div>
+		
 	</body>
 </html>
