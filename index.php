@@ -77,7 +77,7 @@
 				if(isset($_SESSION['C_UserID']) == ''){
 					print('<li><a href="login.php">ログイン</a></li>');
 					print('<li><a href="u_register.php">新規登録</a></li>');
-					print('<script>M.toast({html: "ログインまたは新規登録を行ってください。"})</script>');
+					print('<script>alert("ログインまたは新規登録を行ってください。");</script>');
 				}else{
 					print('<li><a class="dropdown-trigger2" data-target="user-menu2">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
 					print('<li><div class="divider"></div></li>');
@@ -185,13 +185,16 @@
 								print('</div>');
 								print('<div class="card-action">');
 								if($result2['FoodStock']!=0){
-									print('<form action="addfood.php" method="POST">');
-									print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
-									print('<input required placeholder="枚数を入力" type="number" name="maisu" min="1" max='.$result2['FoodStock'].' ">');
-									print('<input class="btn" type="submit" value="カートに追加">');
-									print('</form>');
+									if(isset($_SESSION['C_UserID']) != '') {
+										print('<form action="addfood.php" method="POST">');
+										print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
+										print('<input required placeholder="枚数を入力" type="number" name="maisu" min="1" max='.$result2['FoodStock'].' ">');
+										print('<input class="btn" type="submit" value="カートに追加">');
+										print('</form>');
+									} else {
+										print('<p><a href="login.php">ログイン</a>または<a href="u_register.php">新規登録</a>してください。</p>');
+									}
 								}else{
-									print('<input class="btn red darken-2" type="submit" value="売り切れ">');
 								}
 								print('</div>');
 								print('</div>');
