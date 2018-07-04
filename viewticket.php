@@ -23,14 +23,24 @@
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/js/materialize.min.js"></script>
     	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113412923-2"></script>
-    	<script>
-      		window.dataLayer = window.dataLayer || [];
-      		function gtag(){dataLayer.push(arguments);}
-      		gtag('js', new Date());
+    	<!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121847207-1"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-      		gtag('config', 'UA-113412923-2');
-    	</script>
+        gtag('config', 'UA-121847207-1');
+      </script>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121847207-5"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-121847207-5');
+      </script>
     </head>
     <body>
     <ul id="user-menu1" class="dropdown-content">
