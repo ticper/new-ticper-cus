@@ -77,7 +77,6 @@
 				if(isset($_SESSION['C_UserID']) == ''){
 					print('<li><a data-target="modal-login" class="modal-trigger">ログイン</a></li>');
 					print('<li><a data-target="modal-register" class="modal-trigger">新規登録</a></li>');
-					print('<script>alert("ログインまたは新規登録を行ってください。");</script>');
 				}else{
 					print('<li><a class="dropdown-trigger2" data-target="user-menu2">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
 					print('<li><div class="divider"></div></li>');
@@ -90,24 +89,13 @@
 			$(document).ready(function(){
 				$('.sidenav').sidenav();
 				$('.dropdown-trigger1').dropdown();
-			});
-		</script>
-
-		<script>
-			$(document).ready(function(){
-				$('.sidenav').sidenav();
 				$('.dropdown-trigger2').dropdown();
-			});
-		</script>
-
-		<script>
-			$(document).ready(function(){
 				$('.sidenav').sidenav();
     			$('.modal').modal();
 				$('.collapsible').collapsible(); 
 			});
 		</script>
-					
+
 		<div class="container">
 			<div class="col s12">
 				<?php
@@ -116,19 +104,9 @@
 					print('<div class="top">');
 					print('<h4>団体一覧</h4>');
 					print('<p>団体を選択すると、メニューが表示されます。</p>');
-					print('<ul>');
-					while($result = mysqli_fetch_assoc($sql)){
-						if($result['OrgID'] == '0'){
-						
-						} else {
-							print('<li><a href="#'.$result['OrgID'].'">・'.$result['OrgName'].'</a></li>');
-						}
-					}
-					print('</ul>');
 					print('</div>');
 				?>
 				<?php
-					require_once('config/config.php');
 					$sql = mysqli_query($db_link, "SELECT * FROM tp_org");
 					print('<ul class="collapsible">');
 					while ($result = mysqli_fetch_assoc($sql)) {
@@ -210,55 +188,59 @@
 
 						}
 					?>
-				<li><h4>その他</h4>
-				<div class="row">
-					<div class="col s12 m5">
-						<div class="card">
-							<div class="card-image">
-								<?php
-									print('<img src="'.$img_link.'0.png">');
-								?>
-							</div>
-							<div class="card-content">
-								<p>会計本部</p>
-							</div>
-							<div class="card-action">
-								<?php
-									$sql = mysqli_query($db_link, "SELECT Status FROM tp_org WHERE OrgID = '0'");
-									$result = mysqli_fetch_assoc($sql);
-									print('<p>混雑度:');
-									if($result['Status'] == 0) {
-										print("空いている");
-									} elseif ($result['Status'] == 1) {
-										print("少し混んでいる");
-									} elseif ($result['Status'] == 2) {
-										print("結構混んでいる");
-									} elseif ($result['Status'] == 3) {
-										print("超混んでいる");
-									}
-									print('<p>')
-								?>
+				<li>
+					<div class="collapsible-header" id="<?php print($OrgID+1);?>">
+						<h4>その他</h4>
+					</div>
+					<div class="collapsible-body">
+						<div class="row">
+							<div class="col s12 m5">
+								<div class="card">
+									<div class="card-image">
+										<?php
+											print('<img src="'.$img_link.'0.png">');
+										?>
+									</div>
+									<div class="card-content">
+										<p>会計本部</p>
+									</div>
+									<div class="card-action">
+										<?php
+											$sql = mysqli_query($db_link, "SELECT Status FROM tp_org WHERE OrgID = '0'");
+											$result = mysqli_fetch_assoc($sql);
+											print('<p>混雑度:');
+											if($result['Status'] == 0) {
+												print("空いている");
+											} elseif ($result['Status'] == 1) {
+												print("少し混んでいる");
+											} elseif ($result['Status'] == 2) {
+												print("結構混んでいる");
+											} elseif ($result['Status'] == 3) {
+												print("超混んでいる");
+											}
+											print('<p>')
+										?>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col s12 m5">
-						<div class="card">
-							<div class="card-image">
-								<?php
-									print('<img src="'.$img_link.'twitter.png">');
-								?>
-							</div>
-							<div class="card-content">
-								<p>このページをTwitterで共有する。</p>
-      						</div>
-      						<div class="card-action">
-      							<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
-      							<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-      						</div>
-      					</div>
-      				</div>
-      			</div></li>
-			</div>
+						<div class="col s12 m5">
+							<div class="card">
+								<div class="card-image">
+									<?php
+										print('<img src="'.$img_link.'twitter.png">');
+									?>
+								</div>
+								<div class="card-content">
+									<p>このページをTwitterで共有する。</p>
+	      						</div>
+	      						<div class="card-action">
+	      							<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+	      							<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	      						</div>
+	      					</div>
+	      				</div>
+	      			</div>
+	      		</li>
 			</div>
 		</div>
 		<div class="fixed-action-btn">
@@ -347,7 +329,6 @@
     		<div class="modal-content">
       			<h4>チケットを表示する</h4>
       			<?php
-    					require_once('config/config.php');
     					$UserID = $_SESSION['C_UserID'];
     					$now = 0;
        					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
@@ -385,7 +366,6 @@
     		<div class="modal-content">
       			<h4>カート</h4>
       			<?php
-					require_once('config/config.php');
 					print('<table>');
 					print('<thead>');
 					print('<tr>');
