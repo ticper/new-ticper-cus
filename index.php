@@ -40,7 +40,7 @@
 			<li class="divider" tabindex="-1"></li>
 			<li><a data-target="modal-cart" class="modal-trigger">カートを見る</a></li>
 			<li class="divider" tabindex="-1"></li>
-			<li><a href="receipt.php">領収書</a></li>
+			<li><a data-target="modal-receipt" class="modal-trigger">領収書</a></li>
 			<li class="divider" tabindex="-1"></li>
 			<li><a href="logout.php" class="red-text">ログアウト</a></li>
 		</ul>
@@ -50,7 +50,7 @@
 			<li class="divider" tabindex="-1"></li>
 			<li><a data-target="modal-cart" class="modal-trigger">カートを見る</a></li>
 			<li class="divider" tabindex="-1">
-			<li><a href="receipt.php" class=" teal-text text-lighten-1">領収書</a></li>
+			<li><a data-target="modal-receipt" class="modal-trigger">領収書</a></li>
 		</ul>
 
 		<nav class="light-blue darken-4">
@@ -103,7 +103,8 @@
 		<script>
 			$(document).ready(function(){
 				$('.sidenav').sidenav();
-    			$('.modal').modal(); 
+    			$('.modal').modal();
+				$('.collapsible').collapsible(); 
 			});
 		</script>
 					
@@ -114,6 +115,7 @@
 					$sql = mysqli_query($db_link,"SELECT * FROM tp_org");
 					print('<div class="top">');
 					print('<h4>団体一覧</h4>');
+					print('<p>団体を選択すると、メニューが表示されます。</p>');
 					print('<ul>');
 					while($result = mysqli_fetch_assoc($sql)){
 						if($result['OrgID'] == '0'){
@@ -128,14 +130,16 @@
 				<?php
 					require_once('config/config.php');
 					$sql = mysqli_query($db_link, "SELECT * FROM tp_org");
+					print('<ul class="collapsible">');
 					while ($result = mysqli_fetch_assoc($sql)) {
 						if($result['OrgID'] == 0){
 						
 						} else {
-							print('<div id="'.$result['OrgID'].'">');
+							print('<li>');
+							print('<div class="collapsible-header" id="'.$result['OrgID'].'">');
 							print('<h4>'.$result['OrgName'].'</h4>');
 							print('</div>');
-							print('<h6>'.$result['OrgPlace'].'</h6>');
+							print('<div class="collapsible-body"><h6>'.$result['OrgPlace'].'</h6>');
 							$orgid = $result['OrgID'];
 							$sql3 = mysqli_query($db_link, "SELECT Status FROM tp_org WHERE OrgID = '$orgid'");
 							$result3 = mysqli_fetch_assoc($sql3);
@@ -201,12 +205,12 @@
 								print('</div>');
 								print('</div>');							
 								}
-								print('</div>');
+								print('</div></div></li>');
 							}
 
 						}
 					?>
-				<h4>その他</h4>
+				<li><h4>その他</h4>
 				<div class="row">
 					<div class="col s12 m5">
 						<div class="card">
@@ -253,7 +257,8 @@
       						</div>
       					</div>
       				</div>
-      			</div>
+      			</div></li>
+			</div>
 			</div>
 		</div>
 		<div class="fixed-action-btn">
@@ -288,6 +293,51 @@
 					<input type="password" name="password" class="validate">
 					<button type="submit" class="btn">ログインする</button>
 				</form>
+    		</div>
+    		<div class="modal-footer">
+      			<a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
+    		</div>
+  		</div>
+		  <div id="modal-receipt" class="modal">
+    		<div class="modal-content">
+				<h4>領収書</h4>
+				<table>
+					<thead>
+						<tr>
+							<th>商品名</th>
+							<th>値段</th>
+							<th>枚数</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							require_once('config/config.php');
+							$userid = $_SESSION['C_UserID'];
+							$sql = mysqli_query($db_link,"SELECT FoodID,Sheets FROM tp_ticket WHERE UserID = '$userid'");
+							$goukei = 0;
+							while($result = mysqli_fetch_assoc($sql)){
+								$foodid = $result['FoodID'];
+								$sql2 = mysqli_query($db_link,"SELECT FoodName,FoodPrice FROM tp_food WHERE FoodID = '$foodid'");
+								$result2 = mysqli_fetch_assoc($sql2);
+								print('<tr>');
+								print('<td>');
+								print($result2['FoodName']);
+								print('</td>');
+								print('<td>');
+								print($result2['FoodPrice']);
+								print('</td>');
+								print('<td>');
+								print($result['Sheets']);
+								print('</td>');
+								$goukei = $goukei + $result2['FoodPrice'] * $result['Sheets'];
+							}
+
+						?>
+					</tbody>
+				</table>
+				<?php
+					print('<p style="text-align:right;">上記商品代として、'.$goukei.'円を領収いたしました。</p>');
+				?>
     		</div>
     		<div class="modal-footer">
       			<a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
@@ -411,7 +461,7 @@
 					print('<div class="center">');
 					print('<br><br><img src="https://api.qrserver.com/v1/create-qr-code/?data='.$userid.'&size=200x200" alt="QRコード"/><br>');
 					print('<br>この画面を受付で表示してください。<br><br>');
-					print('<a href="carts.php"><input class="btn" type="submit" value="BACK"></a>　<a href="viewticket.php"><input class="btn" type="submit" value="NEXT"></a>');
+					print('<a href="index.php"><input class="btn" type="submit" value="更新"></a>');
 					print('</div>');
 				?>
     		</div>
