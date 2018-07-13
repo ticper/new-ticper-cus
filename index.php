@@ -243,11 +243,6 @@
 	      		</li>
 			</div>
 		</div>
-		<div class="fixed-action-btn">
-			<a data-target="modal-cart" class="modal-trigger" class="btn-floating btn-large red">
-				<i class="large material-icons">shopping_cart</i>
-			</a>
-		</div>
 		<div id="modal-login" class="modal">
     		<div class="modal-content">
       			<h4>ログイン</h4>
