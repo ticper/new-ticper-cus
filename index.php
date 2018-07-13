@@ -244,7 +244,7 @@
 			</div>
 		</div>
 		<div class="fixed-action-btn">
-			<a href="carts.php" class="btn-floating btn-large red">
+			<a data-target="modal-cart" class="modal-trigger" class="btn-floating btn-large red">
 				<i class="large material-icons">shopping_cart</i>
 			</a>
 		</div>
