@@ -42,7 +42,7 @@
 			<li class="divider" tabindex="-1"></li>
 			<li><a data-target="modal-receipt" class="modal-trigger">領収書</a></li>
 			<li class="divider" tabindex="-1"></li>
-			<li><a href="logout.php" class="red-text">ログアウト</a></li>
+			<li><a onclick="disp()" class="red-text">ログアウト</a></li>
 		</ul>
 
 		<ul id="user-menu2" class="dropdown-content">
@@ -80,7 +80,7 @@
 				}else{
 					print('<li><a class="dropdown-trigger2" data-target="user-menu2">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
 					print('<li><div class="divider"></div></li>');
-					print('<li><a href="logout.php" class="red-text" style="margin-top: 2px;">ログアウト</a></li>');
+					print('<li><a onClick="disp()" class="red-text" style="margin-top: 2px;">ログアウト</a></li>');
 				}
 			?>
 		</ul>
@@ -94,6 +94,13 @@
     			$('.modal').modal();
 				$('.collapsible').collapsible(); 
 			});
+			function disp(){
+				if (window.confirm('本当にログアウトしますか？')) {
+					location.href = "logout.php";
+				}
+				else{
+				}
+			}
 		</script>
 
 		<div class="container">
