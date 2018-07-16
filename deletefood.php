@@ -26,10 +26,10 @@
     	}
     
     print('<script>alert("削除しました。")</script>');
-    print('<script>location.href = "carts.php";</script>');
+    print('<script>location.href = "index.php";</script>');
 
 	} else {
 		print('<script>alert("削除枚数がカートに入っている枚数を上回っています。")</script>');
-		print('<script>location.href = "carts.php";</script>');
+		print('<script>location.href = "index.php";</script>');
 	}
 ?>
