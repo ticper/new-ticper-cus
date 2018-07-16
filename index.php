@@ -175,7 +175,7 @@
 										print('<input class="btn" type="submit" value="カートに追加">');
 										print('</form>');
 									} else {
-										print('<p><a href="login.php">ログイン</a>または<a href="u_register.php">新規登録</a>してください。</p>');
+										print('<p><a data-target="modal-login" class="modal-trigger">ログイン</a>または<a data-target="modal-register" class="modal-trigger">新規登録</a>してください。</p>');
 									}
 								}else{
 								}
@@ -242,11 +242,6 @@
 	      			</div>
 	      		</li>
 			</div>
-		</div>
-		<div class="fixed-action-btn">
-			<a href="carts.php" class="btn-floating btn-large red">
-				<i class="large material-icons">shopping_cart</i>
-			</a>
 		</div>
 		<div id="modal-login" class="modal">
     		<div class="modal-content">
