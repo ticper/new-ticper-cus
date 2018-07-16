@@ -255,7 +255,7 @@
 				</form>
     		</div>
     		<div class="modal-footer">
-      			<a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
+      			<a href="#!" class="modal-close btn">閉じる</a>
     		</div>
   		</div>
 		<div id="modal-register" class="modal">
@@ -272,7 +272,7 @@
 				</form>
     		</div>
     		<div class="modal-footer">
-      			<a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
+      			<a href="#!" class="modal-close btn">閉じる</a>
     		</div>
   		</div>
 		  <div id="modal-receipt" class="modal">
@@ -317,7 +317,7 @@
 				?>
     		</div>
     		<div class="modal-footer">
-      			<a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
+      			<a href="#!" class="modal-close btn">閉じる</a>
     		</div>
   		</div>
 		  <div id="modal-viewticket" class="modal">
@@ -354,7 +354,7 @@
     				?>	
     		</div>
     		<div class="modal-footer">
-      			<a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
+      			<a href="#!" class="modal-close btn">閉じる</a>
     		</div>
   		</div>
 		<div id="modal-cart" class="modal">
@@ -420,30 +420,38 @@
 					if($price != 0){
 				
 						print('<div class="center">');
-						print('<br><h6>合計'.$price.'円です。</h6><br>');
-						print('　');
-						print('<a href="index.php"><input class="btn" type="submit" value="更新"></a>');
+						print('<h6>合計'.$price.'円です。</h6><br>');
+						print('<a data-target="modal-qr" class="modal-trigger btn">お会計</a>');
 						print('</div>');
 
 					} else {
 
 						print('<div class="center">');
-						print('<br><h5>カートの中身が空です。</h5><br>');
+						print('<br><h5>カートの中身が空です。</h5>');
 						print('<a href="index.php"><input class="btn" type="submit" value="戻る"></a>');
 					}
 
 					$userid = $_SESSION['C_UserID'];
-					print('<div class="center">');
-					print('<br><br><img src="https://api.qrserver.com/v1/create-qr-code/?data='.$userid.'&size=200x200" alt="QRコード"/><br>');
+				?>
+    		</div>
+    		<div class="modal-footer">
+      			<a href="#!" class="modal-close btn">閉じる</a>
+    		</div>
+  		</div>
+		<div id="modal-qr" class="modal">
+			<div class="modal-content">
+				<h4>お会計</h4>
+    			<?php
+    				print('<div class="center">');
+					print('<img src="https://api.qrserver.com/v1/create-qr-code/?data='.$userid.'&size=200x200" alt="QRコード"/><br>');
 					print('<br>この画面を受付で表示してください。<br><br>');
-					print('<a href="index.php"><input class="btn" type="submit" value="更新"></a>');
+					print('<a href="index.php"><input class="btn" type="submit" value="支払いました"></a>');
 					print('</div>');
 				?>
     		</div>
     		<div class="modal-footer">
-      			<a href="#!" class="modal-close waves-effect waves-green btn-flat">閉じる</a>
+    			<a href="#!" class="modal-close btn">閉じる</a>
     		</div>
-  		</div>
-		
+    	</div>
 	</body>
 </html>
