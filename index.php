@@ -24,7 +24,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/js/materialize.min.js"></script>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		
-		<!-- Googleアナクリティクス -->
+		<!-- Googleアナリティクス -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113412923-2"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
