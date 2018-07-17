@@ -197,7 +197,7 @@
 					?>
 				<li>
 					<div class="collapsible-header" id="<?php print($OrgID+1);?>">
-						<h4>その他</h4>
+						<b>その他</b>
 					</div>
 					<div class="collapsible-body">
 						<div class="row">
