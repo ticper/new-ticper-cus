@@ -122,7 +122,7 @@
 						} else {
 							print('<li>');
 							print('<div class="collapsible-header" id="'.$result['OrgID'].'">');
-							print('<h4>'.$result['OrgName'].'</h4>');
+							print('<b>'.$result['OrgName'].'</b>');
 							print('</div>');
 							print('<div class="collapsible-body"><h6>'.$result['OrgPlace'].'</h6>');
 							$orgid = $result['OrgID'];
