@@ -1,3 +1,12 @@
+		<!-- トラッキング（統括） -->
+		<script>
+			window.dataLayer = window.dataLayer || [];
+  			function gtag(){dataLayer.push(arguments);}
+  			gtag('js', new Date());
+
+  			gtag('config', 'UA-121847207-5');
+		</script>
+
 <?php 
 	// コンフィグを導入
 	require_once('config/config.php');
@@ -29,6 +38,7 @@
 		$sql = mysqli_query($db_link, "INSERT INTO tp_log ('Time', 'Action', 'CustUserID') VALUES (CURRENT_TIMESTAMP, '$logMessage', '$s_userid')");
 		print('<script>location.href = "index.php";</script>');
 	} else {
-		print('<script>alert("ログインに失敗しました。ユーザIDとパスワードを確認してください。"); location.href = "login.php"; </script>');
+		session_start();
+		print('<script>alert("ログインに失敗しました。ユーザIDとパスワードを確認してください。"); location.href = "index.php?ec=0"; </script>');
 	}
 ?>

@@ -28,6 +28,15 @@
 		
 		<!-- Googleアナリティクス -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113412923-2"></script>
+
+		<!-- トラッキング（統括） -->
+		<script>
+			window.dataLayer = window.dataLayer || [];
+  			function gtag(){dataLayer.push(arguments);}
+  			gtag('js', new Date());
+
+  			gtag('config', 'UA-121847207-5');
+		</script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}

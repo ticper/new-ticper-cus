@@ -25,6 +25,18 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		
 		<!-- Googleアナリティクス -->
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-121847207-5"></script>
+		
+		<!-- トラッキング（統括） -->
+		<script>
+			window.dataLayer = window.dataLayer || [];
+  			function gtag(){dataLayer.push(arguments);}
+  			gtag('js', new Date());
+
+  			gtag('config', 'UA-121847207-5');
+		</script>
+
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-113412923-2"></script>
 		<script>
 			window.dataLayer = window.dataLayer || [];
@@ -61,7 +73,7 @@
 					<ul class="right hide-on-med-and-down">
 						<?php
 							if(isset($_SESSION['C_UserID']) == ''){
-								print('<li><a data-target="modal-login" class="modal-trigger">ログイン</a></li>');
+								print('<li><a data-target="modal-login" class="modal-trigger" id="loginbtn">ログイン</a></li>');
 								print('<li><a data-target="modal-register" class="modal-trigger">新規登録</a></li>');
 							}else{
 								print('<li><a class="dropdown-trigger1" data-target="user-menu1">'.$_SESSION['UserName'].'さん<i class="material-icons right">arrow_drop_down</i></a></li>');
@@ -452,7 +464,7 @@
     				print('<div class="center">');
 					print('<img src="https://api.qrserver.com/v1/create-qr-code/?data='.$userid.'&size=200x200" alt="QRコード"/><br>');
 					print('<br>この画面を受付で表示してください。<br><br>');
-					print('<a href="index.php"><input class="btn" type="submit" value="支払いました"></a>');
+					print('<a href="checkin.php"><input class="btn" type="submit" value="支払いました"></a>');
 					print('</div>');
 				?>
     		</div>
@@ -460,5 +472,16 @@
     			<a href="#!" class="modal-close btn">閉じる</a>
     		</div>
     	</div>
+
+		<?php
+			if($_GET['ec'] == 0) {
+				print("<script>jQuery(document).ready(function(){jQuery('#modal-login').modal('open');});</script>");
+			} else {
+
+			}
+			if($_GET['ec'] == 1) {
+				print("<script>jQuery(document).ready(function(){jQuery('#modal-viewticket').modal('open');});</script>");
+			}
+		?>
 	</body>
 </html>
