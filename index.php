@@ -474,19 +474,13 @@
     	</div>
 
 		<?php
-			if($_GET['ac'] == null) {
-
+			if($_GET['ec'] == "0") {
+				print("<script>jQuery(document).ready(function(){jQuery('#modal-login').modal('open');});</script>");
 			} else {
-				if($_GET['ec'] == 0) {
-					print("<script>jQuery(document).ready(function(){jQuery('#modal-login').modal('open');});</script>");
-				} else {
-	
-				}
-				if($_GET['ec'] == 1) {
-					print("<script>jQuery(document).ready(function(){jQuery('#modal-viewticket').modal('open');});</script>");
-				}
 			}
-
+			if($_GET['ec'] == "1") {
+				print("<script>jQuery(document).ready(function(){jQuery('#modal-viewticket').modal('open');});</script>");
+			}
 		?>
 	</body>
 </html>
