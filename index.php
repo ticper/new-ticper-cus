@@ -348,7 +348,7 @@
        					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
 	   					while ($result = mysqli_fetch_assoc($sql)) {
 			   				print('<div class="col">');
-	    					print('<img style="margin: 10px 10px 10px;"src="https://api.qrserver.com/v1/create-qr-code/?data='.$result['TicketACode'].'&size=200x200" alt="QRコード" /><br>');
+	    					print('<img style="margin: 10px 10px 10px;"src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$result['TicketACode'].'" alt="QRコード" /><br>');
     						$foodid = $result['FoodID'];
     						$sql2 = mysqli_query($db_link, "SELECT FoodName, OrgID, FoodPrice FROM tp_food WHERE FoodID = '$foodid'");
    							$result2 = mysqli_fetch_assoc($sql2);
@@ -462,7 +462,7 @@
 				<h4>お会計</h4>
     			<?php
     				print('<div class="center">');
-					print('<img src="https://api.qrserver.com/v1/create-qr-code/?data='.$userid.'&size=200x200" alt="QRコード"/><br>');
+					print('<img src="https://chart.apis.google.com/chart?chs=300x300&cht=qr&chl='.$userid.'" alt="QRコード"/><br>');
 					print('<br>この画面を受付で表示してください。<br><br>');
 					print('<a href="checkin.php"><input class="btn" type="submit" value="支払いました"></a>');
 					print('</div>');
