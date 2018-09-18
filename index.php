@@ -119,14 +119,14 @@
 			<div class="col s12">
 				<?php
 					require_once('config/config.php');
-					$sql = mysqli_query($db_link,"SELECT * FROM tp_org");
+					$sql = mysqli_query($db_link,"SELECT * FROM tp_org WHERE OrgKind = 1");
 					print('<div class="top">');
 					print('<h4>団体一覧</h4>');
 					print('<p>団体を選択すると、メニューが表示されます。</p>');
 					print('</div>');
 				?>
 				<?php
-					$sql = mysqli_query($db_link, "SELECT * FROM tp_org");
+					$sql = mysqli_query($db_link, "SELECT * FROM tp_org WHERE OrgKind = 1");
 					print('<ul class="collapsible">');
 					while ($result = mysqli_fetch_assoc($sql)) {
 						if($result['OrgID'] == 0){
