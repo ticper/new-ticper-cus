@@ -117,8 +117,16 @@
 
 		<div class="container">
 			<div class="col s12">
+				
 				<?php
 					require_once('config/config.php');
+					$sql = mysqli_query($db_link, "SELECT News FROM tp_news");
+					print('<ul class="collection with-header">');
+					print('<li class="collection-header"><h4>お知らせ</h4></li>');
+					while($result = mysqli_fetch_assoc($sql)) {
+        				print('<li class="collection-item">'.$result['News'].'</li>');
+					}
+					print('</ul>');
 					$sql = mysqli_query($db_link,"SELECT * FROM tp_org WHERE OrgKind = 1");
 					print('<div class="top">');
 					print('<h4>団体一覧</h4>');
