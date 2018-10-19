@@ -25,7 +25,7 @@
 	$sql = mysqli_query($db_link, "SELECT UserID,UserName,Password FROM tp_user_cust WHERE UserID = '$s_userid'");
 	$result = mysqli_fetch_assoc($sql);
 	if($s_userid == $result['UserID']){
-		print('<script>alert("登録に失敗しました。ユーザー名が重複している可能性があります。別のユーザーIDを使用してください"); location.href = "u_register.php";</script>');
+		print('<script>alert("登録に失敗しました。ユーザー名が重複している可能性があります。別のユーザーIDを使用してください"); location.href = "index.php?ec=3";</script>');
 	} else {
 		
 		// ユーザーデータを鯖に登録する
@@ -47,7 +47,7 @@
 			$sql = mysqli_query($db_link, "INSERT INTO tp_log ('Time', 'Action', 'CustUserID') VALUES (CURRENT_TIMESTAMP, '$logMessage', '$s_userid')");
 			print('<script>location.href = "index.php";</script>');
 		} else {
-			print('<script>alert("エラーが発生しました。もう一度やり直してください。"); location.href = "index.php"; </script>');
+			print('<script>alert("エラーが発生しました。もう一度やり直してください。"); location.href = "index.php?ec=3"; </script>');
 		}
 	}
 ?>

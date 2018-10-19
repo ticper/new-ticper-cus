@@ -69,7 +69,13 @@
 			<div class="container">
 				<div class="nav-wrapper">
 					<a href="index.php" class="brand-logo">Ticper</a>
-					<a href="#!" data-target="mobilemenu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+					<a href="#!" data-target="mobilemenu" class="sidenav-trigger" id="tap"><i class="material-icons">menu</i></a>
+					<div class="tap-target" data-target="tap">
+    					<div class="tap-target-content">
+      						<h5>ログイン/新規登録しましょう</h5>
+      						<p><i class="material-icons">menu</i>をタップしてログインか新規登録をします。</p>
+    					</div>
+  					</div>
 					<ul class="right hide-on-med-and-down">
 						<?php
 							if(isset($_SESSION['C_UserID']) == ''){
@@ -119,6 +125,10 @@
 			<div class="col s12">
 				
 				<?php
+					if(isset($_SESSION['C_UserID']) != '') {
+					} else {
+						print("<script>M.toast({html: '画面上のメニューボタンを押してログインまたは新規登録してください。'})</script>");
+					}
 					require_once('config/config.php');
 					$sql = mysqli_query($db_link, "SELECT News FROM tp_news");
 					print('<ul class="collection with-header">');
@@ -198,7 +208,7 @@
 									if(isset($_SESSION['C_UserID']) != '') {
 										print('<form action="addfood.php" method="POST">');
 										print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
-										print('<input required placeholder="枚数を入力" type="number" name="maisu" min="1" max='.$result2['FoodStock'].' ">');
+										print('<input required placeholder="枚数を入力" type="number" name="maisu" min="1" max="5">');
 										print('<input class="btn" type="submit" value="カートに追加">');
 										print('</form>');
 									} else {
@@ -347,44 +357,7 @@
       			<a href="#!" class="modal-close btn">閉じる</a>
     		</div>
   		</div>
-		  <div id="modal-viewticket" class="modal">
-    		<div class="modal-content">
-      			<h4>チケットを表示する</h4>
-      			<?php
-    					$UserID = $_SESSION['C_UserID'];
-    					$now = 0;
-       					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
-	   					while ($result = mysqli_fetch_assoc($sql)) {
-			   				print('<div class="col">');
-	    					print('<img style="margin: 10px 10px 10px;"src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$result['TicketACode'].'" alt="QRコード" /><br>');
-    						$foodid = $result['FoodID'];
-    						$sql2 = mysqli_query($db_link, "SELECT FoodName, OrgID, FoodPrice FROM tp_food WHERE FoodID = '$foodid'");
-   							$result2 = mysqli_fetch_assoc($sql2);
-   							$OrgID = $result2['OrgID'];
-   							$sql3 = mysqli_query($db_link, "SELECT OrgName, OrgPlace FROM tp_org WHERE OrgID = '$OrgID'");
-   							$result3 = mysqli_fetch_assoc($sql3);
-   							print('<b>'.$result2['FoodName'].'</b>('.$result['Sheets'].'枚)<br>');
-    						print($result3['OrgName'].'<br>('.$result3['OrgPlace'].'で交換)<br>');
-   							print('<b>'.$result2['FoodPrice'].'円</b>');
-    						print('</div>');
-    						$now = $now + 1;
-   							if ($now == 3) {
-    							print('</div><div class="row">');
-    							$now = 0;
-   							}
-   						}
-   						$sql = mysqli_query($db_link, "SELECT COUNT(*) AS FoodID FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
-						$result = mysqli_fetch_assoc($sql);
-   						if($result['FoodID'] == '0') {
-   							print('<h5>未使用の食券はありません</h5>');
-   						}
-    				?>	
-    		</div>
-    		<div class="modal-footer">
-      			<a href="#!" class="modal-close btn">閉じる</a>
-    		</div>
-  		</div>
-		<div id="modal-cart" class="modal">
+  				<div id="modal-cart" class="modal">
     		<div class="modal-content">
       			<h4>カート</h4>
       			<?php
@@ -480,6 +453,64 @@
     			<a href="#!" class="modal-close btn">閉じる</a>
     		</div>
     	</div>
+		  <div id="modal-viewticket" class="modal">
+    		<div class="modal-content">
+      			<h4>チケットを表示する</h4>
+      			<?php
+    					$UserID = $_SESSION['C_UserID'];
+    					$now = 0;
+    					
+    					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '1'");
+    					while($result = mysqli_fetch_assoc($sql)) {
+    						print('<div class="col">');
+    						$foodid = $result['FoodID'];
+    						$sql2 = mysqli_query($db_link, "SELECT FoodName, OrgID, FoodPrice, Time FROM tp_food WHERE FoodID = '$foodid'");
+   							$result2 = mysqli_fetch_assoc($sql2);
+   							$OrgID = $result2['OrgID'];
+   							$sql3 = mysqli_query($db_link, "SELECT OrgName, OrgPlace FROM tp_org WHERE OrgID = '$OrgID'");
+   							$result3 = mysqli_fetch_assoc($sql3);
+   							if($result['Cook'] == '1' and $result['Got'] == '1') {
+   								print("<p>".$result3['OrgName']."の".$result2['FoodName']."は受け取り済みです。</p>");
+   							} elseif($result['Cook'] == '1' and $result['Got'] == '0') {
+   								print("<p>".$result3['OrgName']."の".$result2['FoodName']."は調理中です。</p>");
+   								print('<ul><li>食券番号:'.$result['TicketACode'].'</li><li>受け取りは調理の都合上順番が変動します。</li></ul>');
+								print('<img style="margin: 10px 10px 10px;"src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$result['TicketACode'].'" alt="QRコード" /><br>');
+   							} elseif($result['Cook'] == '0' and $result['Got'] == '0') {
+   								print("<p>".$result3['OrgName']."の".$result2['FoodName']."は調理待機中です。</p>");
+   							}
+    					}
+       					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
+	   					while ($result = mysqli_fetch_assoc($sql)) {
+			   				print('<div class="col">');
+	    					print('<img style="margin: 10px 10px 10px;"src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$result['TicketACode'].'" alt="QRコード" /><br>');
+    						$foodid = $result['FoodID'];
+    						$sql2 = mysqli_query($db_link, "SELECT FoodName, OrgID, FoodPrice FROM tp_food WHERE FoodID = '$foodid'");
+   							$result2 = mysqli_fetch_assoc($sql2);
+   							$OrgID = $result2['OrgID'];
+   							$sql3 = mysqli_query($db_link, "SELECT OrgName, OrgPlace FROM tp_org WHERE OrgID = '$OrgID'");
+   							$result3 = mysqli_fetch_assoc($sql3);
+   							print('<b>'.$result2['FoodName'].'</b>('.$result['Sheets'].'枚)<br>');
+    						print($result3['OrgName'].'<br>('.$result3['OrgPlace'].'で交換)<br>');
+   							print('<b>'.$result2['FoodPrice'].'円</b>');
+    						print('</div>');
+    						$now = $now + 1;
+   							if ($now == 3) {
+    							print('</div><div class="row">');
+    							$now = 0;
+   							}
+   						}
+   						$sql = mysqli_query($db_link, "SELECT COUNT(*) AS FoodID FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
+						$result = mysqli_fetch_assoc($sql);
+   						if($result['FoodID'] == '0') {
+   							print('<h5>未使用の食券はありません</h5>');
+   						}
+    				?>	
+    		</div>
+    		<div class="modal-footer">
+      			<a href="#!" class="modal-close btn">閉じる</a>
+    		</div>
+  		</div>
+
 
 		<?php
 			if($_GET['ec'] == "0") {
@@ -488,6 +519,12 @@
 			}
 			if($_GET['ec'] == "1") {
 				print("<script>jQuery(document).ready(function(){jQuery('#modal-viewticket').modal('open');});</script>");
+			}if($_GET['ec'] == "2") {
+				print("<script>jQuery(document).ready(function(){jQuery('#modal-cart').modal('open');});</script>");
+			}if($_GET['ec'] == "3") {
+				print("<script>jQuery(document).ready(function(){jQuery('#modal-register').modal('open');});</script>");
+			}if($_GET['ec'] == "4") {
+				print("<script>jQuery(document).ready(function(){jQuery('#modal-login').modal('open');});</script>");
 			}
 		?>
 	</body>
