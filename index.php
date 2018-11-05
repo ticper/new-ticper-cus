@@ -138,6 +138,58 @@
 					}
 					print('</ul>');
 					$sql = mysqli_query($db_link,"SELECT * FROM tp_org WHERE OrgKind = 1");
+					$sql2 = mysqli_query($db_link, "SELECT COUNT(*) AS num FROM tp_food");
+					$result = mysqli_fetch_assoc($sql2);
+					$fi = rand(1, $result['num']);
+					$sql2 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE FoodID = '$fi'");
+					print('<h4>あなたへのおすすめ</h4>');
+					while ($result2 = mysqli_fetch_assoc($sql2)) {
+								print('<div class="col s12 m5">');
+								print('<div class="card">');
+								print('<div class="card-image">');
+								print('<img src="'.$img_link.''.$result2['FoodID'].'.png">');
+								print('<span class="card-title">'.$result2['FoodName'].'</span>');
+								print('</div>');
+								print('<div class="card-content">');
+								print('<div class="chip">');
+								print('<p>'.$result2['FoodPrice'].'円</p>');
+								print('</div>');
+								if($result2['FoodStock'] == 0) {
+									print('<div class="chip red">');
+									print('<p style="color: white;"><b>売り切れました。</b></p>');
+									print('</div>');
+								} elseif($result2['FoodStock'] <= 10) {
+									print('<div class="chip red">');
+									print('<p style="color: white;"><b>あと少しです！</b></p>');
+									print('</div>');
+								} elseif ($result2['FoodStock'] < 30) {
+									print('<div class="chip yellow">');
+									print('<p><b>まだあります！</b></p>');
+									print('</div>');	
+								} elseif ($result2['FoodStock'] >= 30) {
+									print('<div class="chip green">');
+									print('<p style="color: white;"><b>順調に売れています！</b></p>');
+									print('</div>');
+								}
+								print('<p><br>'.$result2['FoodDescription'].'</p>');
+								print('</div>');
+								print('<div class="card-action">');
+								if($result2['FoodStock']!=0){
+									if(isset($_SESSION['C_UserID']) != '') {
+										print('<form action="addfood.php" method="POST">');
+										print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
+										print('<input required placeholder="枚数を入力" type="number" name="maisu" min="1" max="5">');
+										print('<input class="btn" type="submit" value="カートに追加">');
+										print('</form>');
+									} else {
+										print('<p><a data-target="modal-login" class="modal-trigger">ログイン</a>または<a data-target="modal-register" class="modal-trigger">新規登録</a>してください。</p>');
+									}
+								}else{
+								}
+								print('</div>');
+								print('</div>');
+								print('</div>');							
+								}
 					print('<div class="top">');
 					print('<h4>団体一覧</h4>');
 					print('<p>団体を選択すると、メニューが表示されます。</p>');
