@@ -202,6 +202,22 @@
 						print('<li class="collection-item"><a data-target="modal-login" class="modal-trigger">ログイン</a>か<a data-target="modal-register" class="modal-trigger">新規登録</a>しましょう。</li>');
 					}
 					print('</ul>');
+					print('<ul class="collapsible">');
+					print('<li><div class="collapsible-header">ステージ情報を見る</div>');
+					print('<div class="collapsible-body"><table>');
+					$sql = mysqli_query($db_link, "SELECT StageName, DATE_FORMAT(StartTime, '%H:%i') AS timeinstring1, DATE_FORMAT(EndTime, '%H:%i') AS timeinstring2 FROM tp_stage WHERE Start = 1 AND Finish = 0");
+					while($result = mysqli_fetch_assoc($sql)) {
+						if($result['StageName'] == 0) {
+							print('<tr><th colspan="3">現在開催中のステージはありません</th></tr>');
+						} else {
+							print('<tr><th>'.$result['StageName'].'</th><td>'.$result['timeinstring1'].'~'.$result['timeinstring2'].'</td><th>開催中！</th></tr>');
+						}
+					}
+					$sql = mysqli_query($db_link, "SELECT StageName, DATE_FORMAT(StartTime, '%H:%i') AS timeinstring1, DATE_FORMAT(EndTime, '%H:%i') AS timeinstring2 FROM tp_stage WHERE Start = 0 AND Finish = 0 Limit 0, 5");
+					while($result = mysqli_fetch_assoc($sql)) {
+							print('<tr><th>'.$result['StageName'].'</th><td>'.$result['timeinstring1'].'~'.$result['timeinstring2'].'</td><th>開催予定！</th></tr>');
+					}
+					print('</table></div></li></ul>');
 					$sql = mysqli_query($db_link,"SELECT * FROM tp_org WHERE OrgKind = 1");
 					$sql2 = mysqli_query($db_link, "SELECT COUNT(*) AS num FROM tp_food");
 					$result = mysqli_fetch_assoc($sql2);
