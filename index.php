@@ -184,13 +184,22 @@
 					if(isset($_SESSION['C_UserID']) != '') {
 					} else {
 						print("<script>M.toast({html: '画面上のメニューボタンを押してログインまたは新規登録してください。'})</script>");
+						print('<br><br><a data-target="modal-login" class="modal-trigger btn">ログイン</a>&nbsp;<a data-target="modal-register" class="modal-trigger btn">新規登録</a>');
 					}
 					require_once('config/config.php');
 					$sql = mysqli_query($db_link, "SELECT News FROM tp_news");
 					print('<ul class="collection with-header">');
-					print('<li class="collection-header"><h4>お知らせ</h4></li>');
+					print('<li class="collection-header"><h5>お知らせ</h5></li>');
 					while($result = mysqli_fetch_assoc($sql)) {
-        				print('<li class="collection-item">'.$result['News'].'</li>');
+						if($result['News'] == '0') {
+							print('<li class="collection-item">お知らせはありません。</li>');
+						} else {
+        					print('<li class="collection-item">'.$result['News'].'</li>');
+						}
+					}
+					if(isset($_SESSION['C_UserID']) != '') {
+					} else {
+						print('<li class="collection-item"><a data-target="modal-login" class="modal-trigger">ログイン</a>か<a data-target="modal-register" class="modal-trigger">新規登録</a>しましょう。</li>');
 					}
 					print('</ul>');
 					$sql = mysqli_query($db_link,"SELECT * FROM tp_org WHERE OrgKind = 1");
