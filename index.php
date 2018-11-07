@@ -225,7 +225,7 @@
 					$sql2 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE FoodID = '$fi'");
 					print('<h4>あなたへのおすすめ</h4>');
 					while ($result2 = mysqli_fetch_assoc($sql2)) {
-								print('<div class="col s12 m5">');
+								print('<div class="col s5 m12">');
 								print('<div class="card">');
 								print('<div class="card-image">');
 								print('<img src="'.$img_link.''.$result2['FoodID'].'.png">');
@@ -432,6 +432,7 @@
    							$result3 = mysqli_fetch_assoc($sql3);
    							print('<b>'.$result2['FoodName'].'</b>('.$result['Sheets'].'枚)<br>');
     						print($result3['OrgName'].'<br>('.$result3['OrgPlace'].'で交換)<br>');
+    						print('AC:'.$result['TicketACode'].'<br>');
    							print('<b>'.$result2['FoodPrice'].'円</b>');
     						print('</div>');
     						$now = $now + 1;
@@ -616,6 +617,7 @@
     				print('<div class="center">');
 					print('<img src="https://chart.apis.google.com/chart?chs=300x300&cht=qr&chl='.$userid.'" alt="QRコード"/><br>');
 					print('<br>この画面を受付で表示してください。<br><br>');
+					print('UserID: '.$userid.'<br><br>');
 					print('<a href="checkin.php"><input class="btn" type="submit" value="支払いました"></a>');
 					print('</div>');
 				?>
