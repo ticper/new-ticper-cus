@@ -419,6 +419,17 @@
       			<h4>チケットを表示する</h4>
       			<?php
     					$UserID = $_SESSION['C_UserID'];
+    					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '1' AND Changed = '0'");
+    					while($result = mysqli_fetch_assoc($sql)) {
+    						print('<center>受付番号</center>');
+    						print('<center><font size="5"><b>'.$result['ChangeNo'].'番</b></font></center>');
+    						$FoodID = $result['FoodID'];
+    						$sql2 = mysqli_query($db_link, "SELECT FoodName FROM tp_food WHERE FoodID = '$FoodID'");
+    						$result2 = mysqli_fetch_assoc($sql2);
+    						print('<center>'.$result2['FoodName']."は現在調理中です。</center>");
+    						print('<hr />');
+
+    					}
     					$now = 0;
        					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
 	   					while ($result = mysqli_fetch_assoc($sql)) {
