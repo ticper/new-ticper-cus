@@ -21,8 +21,11 @@
 		
 		<!-- Materialize導入 -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/css/materialize.min.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/js/materialize.min.js"></script>
+		<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.4/js/materialize.min.js"></script>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+		<!-- 画像遅延読み込み -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/4.1.4/lazysizes.min.js" async=""></script>
 		
 		<!-- Googleアナリティクス -->
 		<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -97,12 +100,16 @@
 		</script>
 	</head>
 	<body>
+		<?php
+		if(isset($_SESSION['C_UserID']) == ''){print('
 		<div id="loader-bg">
   			<div id="loader">
     			<img src="img/load.gif" width="100" height="100" alt="Now Loading..." />
     			<p>Now Loading...</p>
   			</div>
 		</div>
+		');}
+		?>
 		<ul id="user-menu1" class="dropdown-content">
 			<li><a data-target="modal-viewticket" class="modal-trigger">チケットページ</a></li>
 			<li class="divider" tabindex="-1"></li>
@@ -179,7 +186,6 @@
 		<div class="wrap">
 		<div class="container">
 			<div class="col s12">
-				
 				<?php
 					if(isset($_SESSION['C_UserID']) != '') {
 					} else {
@@ -205,157 +211,150 @@
 					print('<ul class="collapsible">');
 					print('<li><div class="collapsible-header"><i class="material-icons">event_note</i>ステージ情報（1階エントランス）</div>');
 					print('<div class="collapsible-body"><table>');
-					$sql = mysqli_query($db_link, "SELECT StageName, DATE_FORMAT(StartTime, '%H:%i') AS timeinstring1, DATE_FORMAT(EndTime, '%H:%i') AS timeinstring2 FROM tp_stage WHERE Start = 1 AND Finish = 0");
-					while($result = mysqli_fetch_assoc($sql)) {
-						if($result['StageName'] == 0) {
+					$sql2 = mysqli_query($db_link, "SELECT StageName, DATE_FORMAT(StartTime, '%H:%i') AS timeinstring1, DATE_FORMAT(EndTime, '%H:%i') AS timeinstring2 FROM tp_stage WHERE Start = 1 AND Finish = 0");
+					while($result2 = mysqli_fetch_assoc($sql2)) {
+						if($result2['StageName'] == 0) {
 							print('<tr><th colspan="3">現在開催中のステージはありません</th></tr>');
 						} else {
-							print('<tr><th>'.$result['StageName'].'</th><td>'.$result['timeinstring1'].'~'.$result['timeinstring2'].'</td><th>開催中！</th></tr>');
+							print('<tr><th>'.$result2['StageName'].'</th><td>'.$result2['timeinstring1'].'~'.$result2['timeinstring2'].'</td><th>開催中！</th></tr>');
 						}
 					}
-					$sql = mysqli_query($db_link, "SELECT StageName, DATE_FORMAT(StartTime, '%H:%i') AS timeinstring1, DATE_FORMAT(EndTime, '%H:%i') AS timeinstring2 FROM tp_stage WHERE Start = 0 AND Finish = 0");
-					while($result = mysqli_fetch_assoc($sql)) {
-							print('<tr><th>'.$result['StageName'].'</th><td>'.$result['timeinstring1'].'~'.$result['timeinstring2'].'</td><th>開催予定！</th></tr>');
+					$sql3 = mysqli_query($db_link, "SELECT StageName, DATE_FORMAT(StartTime, '%H:%i') AS timeinstring1, DATE_FORMAT(EndTime, '%H:%i') AS timeinstring2 FROM tp_stage WHERE Start = 0 AND Finish = 0");
+					while($result3 = mysqli_fetch_assoc($sql3)) {
+						print('<tr><th>'.$result3['StageName'].'</th><td>'.$result3['timeinstring1'].'~'.$result3['timeinstring2'].'</td><th>開催予定！</th></tr>');
 					}
 					print('</table></div></li></ul>');
-					$sql = mysqli_query($db_link,"SELECT * FROM tp_org WHERE OrgKind = 1");
-					$sql2 = mysqli_query($db_link, "SELECT COUNT(*) AS num FROM tp_food");
-					$result = mysqli_fetch_assoc($sql2);
-					$fi = rand(1, $result['num']);
-					$sql2 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE FoodID = '$fi'");
+					$sql4 = mysqli_query($db_link, "SELECT COUNT(*) AS num FROM tp_food");
+					$result4 = mysqli_fetch_assoc($sql4);
+					$fi = rand(1, $result4['num']);
+					$sql5 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE FoodID = '$fi'");
 					print('<h4>あなたへのおすすめ</h4>');
-					while ($result2 = mysqli_fetch_assoc($sql2)) {
-								print('<div class="col s5 m12">');
-								print('<div class="card">');
-								print('<div class="card-image">');
-								print('<img src="'.$img_link.''.$result2['FoodID'].'.png">');
-								print('<span class="card-title" style="font-weight: bold;">'.$result2['FoodName'].'</span>');
-								print('</div>');
-								print('<div class="card-content">');
-								print('<div class="chip">');
-								print('<p>'.$result2['FoodPrice'].'円</p>');
-								print('</div>');
-								if($result2['FoodStock'] == 0) {
-									print('<div class="chip red">');
-									print('<p style="color: white;"><b>売り切れました。</b></p>');
-									print('</div>');
-								} elseif($result2['FoodStock'] <= 10) {
-									print('<div class="chip red">');
-									print('<p style="color: white;"><b>あと少しです！</b></p>');
-									print('</div>');
-								} elseif ($result2['FoodStock'] < 30) {
-									print('<div class="chip yellow">');
-									print('<p><b>まだあります！</b></p>');
-									print('</div>');	
-								} elseif ($result2['FoodStock'] >= 30) {
-									print('<div class="chip green">');
-									print('<p style="color: white;"><b>順調に売れています！</b></p>');
-									print('</div>');
-								}
-								print('<p><br>'.$result2['FoodDescription'].'</p>');
-								print('</div>');
-								print('<div class="card-action">');
-								if($result2['FoodStock']!=0){
-									if(isset($_SESSION['C_UserID']) != '') {
-										print('<form action="addfood.php" method="POST">');
-										print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
-										print('<input required placeholder="枚数を入力" type="number" name="maisu" min="1" max="5">');
-										print('<input class="btn" type="submit" value="カートに追加">');
-										print('</form>');
-									} else {
-										print('<p><a data-target="modal-login" class="modal-trigger">ログイン</a>または<a data-target="modal-register" class="modal-trigger">新規登録</a>してください。</p>');
-									}
-								}else{
-								}
-								print('</div>');
-								print('</div>');
-								print('</div>');							
-								}
+					while ($result5 = mysqli_fetch_assoc($sql5)) {
+						print('<div class="col s5 m12">');
+						print('<div class="card">');
+						print('<div class="card-image">');
+						print('<img src="'.$img_link.''.$result5['FoodID'].'.png">');
+						print('<span class="card-title" style="font-weight: bold;">'.$result5['FoodName'].'</span>');
+						print('</div>');
+						print('<div class="card-content">');
+						print('<div class="chip">');
+						print('<p>'.$result5['FoodPrice'].'円</p>');
+						print('</div>');
+						if($result5['FoodStock'] == 0) {
+							print('<div class="chip red">');
+							print('<p style="color: white;"><b>売り切れました。</b></p>');
+							print('</div>');
+						} elseif($result5['FoodStock'] <= $result5['FoodStockFrom'] * 0.1) {
+							print('<div class="chip red">');
+							print('<p style="color: white;"><b>あと少しです！</b></p>');
+							print('</div>');
+						} elseif ($result5['FoodStock'] < $result5['FoodStockFrom'] * 0.5) {
+							print('<div class="chip yellow">');
+							print('<p><b>まだあります！</b></p>');
+							print('</div>');	
+						} else {
+							print('<div class="chip green">');
+							print('<p style="color: white;"><b>順調に売れています！</b></p>');
+							print('</div>');
+						}
+						print('<p><br>'.$result5['FoodDescription'].'</p>');
+						print('</div>');
+						print('<div class="card-action">');
+						if($result5['FoodStock']!=0){
+							if(isset($_SESSION['C_UserID']) != '') {
+								print('<form action="addfood.php" method="POST">');
+								print('<input type="hidden" name="FoodID" value="'.$result5['FoodID'].'">');
+								print('<input required placeholder="枚数を入力" type="number" name="maisu" min="1" max="5">');
+								print('<input class="btn" type="submit" value="カートに追加">');
+								print('</form>');
+							} else {
+								print('<p><a style="margin:0;" data-target="modal-login" class="modal-trigger cyan-text text-accent-3">ログイン</a>または<a style="margin:0;" data-target="modal-register" class="modal-trigger cyan-text text-accent-3">新規登録</a>してください。</p>');
+							}
+						}
+						print('</div>');
+						print('</div>');
+						print('</div>');							
+					}
 					print('<div class="top">');
 					print('<h4>団体一覧</h4>');
 					print('<p>団体を選択すると、メニューが表示されます。</p>');
 					print('</div>');
 				?>
 				<?php
-					$sql = mysqli_query($db_link, "SELECT * FROM tp_org WHERE OrgKind = 1");
+					$sql6 = mysqli_query($db_link, "SELECT * FROM tp_org WHERE OrgKind = 1");
 					print('<ul class="collapsible">');
-					while ($result = mysqli_fetch_assoc($sql)) {
-						if($result['OrgID'] == 0){
-						
-						} else {
-							print('<li>');
-							print('<div class="collapsible-header" id="'.$result['OrgID'].'">');
-							print('<b>'.$result['OrgName'].'</b>');
+					while ($result6 = mysqli_fetch_assoc($sql6)) {
+						print('<li>');
+						print('<div class="collapsible-header" id="'.$result6['OrgID'].'">');
+						print('<b>'.$result6['OrgName'].'</b>');
+						print('</div>');
+						print('<div class="collapsible-body"><h6>'.$result6['OrgPlace'].'</h6>');
+						$orgid = $result6['OrgID'];
+						$sql7 = mysqli_query($db_link, "SELECT Status FROM tp_org WHERE OrgID = '$orgid'");
+						$result7 = mysqli_fetch_assoc($sql7);
+						print("<h6>混雑度:");
+						if($result7['Status'] == 0) {
+							print("空いている");
+						} elseif ($result7['Status'] == 1) {
+							print("少し混んでいる");
+						} elseif ($result7['Status'] == 2) {
+							print("結構混んでいる");
+						} elseif ($result7['Status'] == 3) {
+						print("超混んでいる");
+						}
+						print("</h6>");
+						print('<h5>食品一覧</h5>');
+						$OrgID = $result6['OrgID'];
+						$sql8 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE OrgID = '$OrgID'");
+						print('<div class="row">');
+						while ($result8 = mysqli_fetch_assoc($sql8)) {
+							print('<div class="col s12 m5">');
+							print('<div class="card">');
+							print('<div class="card-image">');
+							print('<img src="'.$img_link.''.$result8['FoodID'].'.png" class="lazyload">');
+							print('<span class="card-title" style="font-weight: bold;">'.$result8['FoodName'].'</span>');
 							print('</div>');
-							print('<div class="collapsible-body"><h6>'.$result['OrgPlace'].'</h6>');
-							$orgid = $result['OrgID'];
-							$sql3 = mysqli_query($db_link, "SELECT Status FROM tp_org WHERE OrgID = '$orgid'");
-							$result3 = mysqli_fetch_assoc($sql3);
-							print("<h6>混雑度:");
-							if($result3['Status'] == 0) {
-								print("空いている");
-							} elseif ($result3['Status'] == 1) {
-								print("少し混んでいる");
-							} elseif ($result3['Status'] == 2) {
-								print("結構混んでいる");
-							} elseif ($result3['Status'] == 3) {
-							print("超混んでいる");
+							print('<div class="card-content">');
+							print('<div class="chip">');
+							print('<p>'.$result8['FoodPrice'].'円</p>');
+							print('</div>');
+							if($result8['FoodStock'] == 0) {
+								print('<div class="chip red">');
+								print('<p style="color: white;"><b>売り切れました。</b></p>');
+								print('</div>');
+							} elseif($result8['FoodStock'] <= $result8['FoodStockFrom'] * 0.1) {
+								print('<div class="chip red">');
+								print('<p style="color: white;"><b>あと少しです！</b></p>');
+								print('</div>');
+							} elseif ($result8['FoodStock'] < $result8['FoodStockFrom'] * 0.5) {
+								print('<div class="chip yellow">');
+								print('<p><b>まだあります！</b></p>');
+								print('</div>');	
+							} else {
+								print('<div class="chip green">');
+								print('<p style="color: white;"><b>順調に売れています！</b></p>');
+								print('</div>');
 							}
-							print("</h6>");
-							print('<h5>食品一覧</h5>');
-							$OrgID = $result['OrgID'];
-							$sql2 = mysqli_query($db_link, "SELECT * FROM tp_food WHERE OrgID = '$OrgID'");
-							print('<div class="row">');
-							while ($result2 = mysqli_fetch_assoc($sql2)) {
-								print('<div class="col s12 m5">');
-								print('<div class="card">');
-								print('<div class="card-image">');
-								print('<img src="'.$img_link.''.$result2['FoodID'].'.png">');
-								print('<span class="card-title" style="font-weight: bold;">'.$result2['FoodName'].'</span>');
-								print('</div>');
-								print('<div class="card-content">');
-								print('<div class="chip">');
-								print('<p>'.$result2['FoodPrice'].'円</p>');
-								print('</div>');
-								if($result2['FoodStock'] == 0) {
-									print('<div class="chip red">');
-									print('<p style="color: white;"><b>売り切れました。</b></p>');
-									print('</div>');
-								} elseif($result2['FoodStock'] <= 10) {
-									print('<div class="chip red">');
-									print('<p style="color: white;"><b>あと少しです！</b></p>');
-									print('</div>');
-								} elseif ($result2['FoodStock'] < 30) {
-									print('<div class="chip yellow">');
-									print('<p><b>まだあります！</b></p>');
-									print('</div>');	
-								} elseif ($result2['FoodStock'] >= 30) {
-									print('<div class="chip green">');
-									print('<p style="color: white;"><b>順調に売れています！</b></p>');
-									print('</div>');
+							print('<p><br>'.$result8['FoodDescription'].'</p>');
+							print('</div>');
+							print('<div class="card-action">');
+							if($result8['FoodStock']!=0){
+								if(isset($_SESSION['C_UserID']) != '') {
+									print('<form action="addfood.php" method="POST">');
+									print('<input type="hidden" name="FoodID" value="'.$result8['FoodID'].'">');
+									print('<input required placeholder="枚数を入力" type="number" name="maisu" min="1" max="5">');
+									print('<input class="btn" type="submit" value="カートに追加">');
+									print('</form>');
+								} else {
+									print('<p><a style="margin:0;" data-target="modal-login" class="modal-trigger cyan-text text-accent-3">ログイン</a>または<a style="margin:0;" data-target="modal-register" class="modal-trigger cyan-text text-accent-3"> 新規登録</a>してください。</p>');
 								}
-								print('<p><br>'.$result2['FoodDescription'].'</p>');
-								print('</div>');
-								print('<div class="card-action">');
-								if($result2['FoodStock']!=0){
-									if(isset($_SESSION['C_UserID']) != '') {
-										print('<form action="addfood.php" method="POST">');
-										print('<input type="hidden" name="FoodID" value="'.$result2['FoodID'].'">');
-										print('<input required placeholder="枚数を入力" type="number" name="maisu" min="1" max="5">');
-										print('<input class="btn" type="submit" value="カートに追加">');
-										print('</form>');
-									} else {
-										print('<p><a data-target="modal-login" class="modal-trigger">ログイン</a>または<a data-target="modal-register" class="modal-trigger">新規登録</a>してください。</p>');
-									}
-								}else{
-								}
-								print('</div>');
-								print('</div>');
-								print('</div>');							
-								}
-								print('</div></div></li>');
+							}else{
 							}
-
+							print('</div>');
+							print('</div>');
+							print('</div>');							
+							}
+							print('</div></div></li>');
 						}
 					?>
 				<li>
@@ -368,24 +367,22 @@
 								<div class="card">
 									<div class="card-image">
 										<?php
-											print('<img src="'.$img_link.'0.png">');
+											print('<img src="'.$img_link.'0.png" class="lazyload">');
 										?>
-									</div>
-									<div class="card-content">
-										<p>会計本部</p>
+										<span class="card-title" style="font-weight: bold;">会計本部</span>
 									</div>
 									<div class="card-action">
 										<?php
-											$sql = mysqli_query($db_link, "SELECT Status FROM tp_org WHERE OrgID = '0'");
-											$result = mysqli_fetch_assoc($sql);
+											$sql9 = mysqli_query($db_link, "SELECT Status FROM tp_org WHERE OrgID = '0'");
+											$result9 = mysqli_fetch_assoc($sql);
 											print('<p>混雑度:');
-											if($result['Status'] == 0) {
+											if($result9['Status'] == 0) {
 												print("空いている");
-											} elseif ($result['Status'] == 1) {
+											} elseif ($result9['Status'] == 1) {
 												print("少し混んでいる");
-											} elseif ($result['Status'] == 2) {
+											} elseif ($result9['Status'] == 2) {
 												print("結構混んでいる");
-											} elseif ($result['Status'] == 3) {
+											} elseif ($result9['Status'] == 3) {
 												print("超混んでいる");
 											}
 											print('<p>')
@@ -397,7 +394,7 @@
 							<div class="card">
 								<div class="card-image">
 									<?php
-										print('<img src="'.$img_link.'twitter.png">');
+										print('<img src="'.$img_link.'twitter.png" class="lazyload">');
 									?>
 								</div>
 								<div class="card-content">
@@ -414,7 +411,7 @@
 			</div>
 		</div>
 		
-				  <div id="modal-viewticket" class="modal">
+		<div id="modal-viewticket" class="modal">
     		<div class="modal-content">
       			<h4>チケットを表示する</h4>
       			<?php
@@ -431,20 +428,21 @@
 
     					}
     					$now = 0;
-       					$sql = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
-	   					while ($result = mysqli_fetch_assoc($sql)) {
+       					$sql3 = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
+	   					while ($result3 = mysqli_fetch_assoc($sql3)) {
 			   				print('<div class="col">');
-	    					print('<img style="margin: 10px 10px 10px;"src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$result['TicketACode'].'" alt="QRコード" /><br>');
-    						$foodid = $result['FoodID'];
-    						$sql2 = mysqli_query($db_link, "SELECT FoodName, OrgID, FoodPrice FROM tp_food WHERE FoodID = '$foodid'");
-   							$result2 = mysqli_fetch_assoc($sql2);
-   							$OrgID = $result2['OrgID'];
-   							$sql3 = mysqli_query($db_link, "SELECT OrgName, OrgPlace FROM tp_org WHERE OrgID = '$OrgID'");
-   							$result3 = mysqli_fetch_assoc($sql3);
-   							print('<b>'.$result2['FoodName'].'</b>('.$result['Sheets'].'枚)<br>');
-    						print($result3['OrgName'].'<br>('.$result3['OrgPlace'].'で交換)<br>');
-    						print('AC:'.$result['TicketACode'].'<br>');
-   							print('<b>'.$result2['FoodPrice'].'円</b>');
+	    					print('<img style="margin: 10px 10px 10px;"src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$result3['TicketACode'].'" alt="QRコード"  class="lazyload"/><br>');
+    						$foodid = $result3['FoodID'];
+    						$sql4 = mysqli_query($db_link, "SELECT FoodName, OrgID, FoodPrice FROM tp_food WHERE FoodID = '$foodid'");
+   							$result4 = mysqli_fetch_assoc($sql4);
+   							$OrgID = $result4['OrgID'];
+   							$sql5 = mysqli_query($db_link, "SELECT OrgName, OrgPlace FROM tp_org WHERE OrgID = '$OrgID'");
+   							$result5 = mysqli_fetch_assoc($sql5);
+   							print('<b>'.$result4['FoodName'].'</b>('.$result3['Sheets'].'枚)<br>');
+    						print($result5['OrgName'].'<br>('.$result5['OrgPlace'].'で交換)<br>');
+    						print('AC:'.$result3['TicketACode'].'<br>');
+    						$money = $result4['FoodPrice'] * $result3['Sheets'];
+   							print('<b>'.$money.'円</b>');
     						print('</div>');
     						$now = $now + 1;
    							if ($now == 3) {
@@ -508,7 +506,6 @@
 					</thead>
 					<tbody>
 						<?php
-							require_once('config/config.php');
 							$userid = $_SESSION['C_UserID'];
 							$sql = mysqli_query($db_link,"SELECT FoodID,Sheets FROM tp_ticket WHERE UserID = '$userid'");
 							$goukei = 0;
@@ -626,7 +623,7 @@
 				<h4>お会計</h4>
     			<?php
     				print('<div class="center">');
-					print('<img src="https://chart.apis.google.com/chart?chs=300x300&cht=qr&chl='.$userid.'" alt="QRコード"/><br>');
+					print('<img style="margin: 10px 10px 10px;" src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$userid.'" alt="QRコード" class="lazyload"/><br>');
 					print('<br>この画面を受付で表示してください。<br><br>');
 					print('UserID: '.$userid.'<br><br>');
 					print('<a href="checkin.php"><input class="btn" type="submit" value="支払いました"></a>');
@@ -637,21 +634,16 @@
     			<a href="#!" class="modal-close btn">閉じる</a>
     		</div>
     	</div>
-		  
-
-
 		<?php
 			if($_GET['ec'] == "0") {
 				print("<script>jQuery(document).ready(function(){jQuery('#modal-login').modal('open');});</script>");
-			} else {
-			}
-			if($_GET['ec'] == "1") {
+			}elseif($_GET['ec'] == "1") {
 				print("<script>jQuery(document).ready(function(){jQuery('#modal-viewticket').modal('open');});</script>");
-			}if($_GET['ec'] == "2") {
+			}elseif($_GET['ec'] == "2") {
 				print("<script>jQuery(document).ready(function(){jQuery('#modal-cart').modal('open');});</script>");
-			}if($_GET['ec'] == "3") {
+			}elseif($_GET['ec'] == "3") {
 				print("<script>jQuery(document).ready(function(){jQuery('#modal-register').modal('open');});</script>");
-			}if($_GET['ec'] == "4") {
+			}elseif($_GET['ec'] == "4") {
 				print("<script>jQuery(document).ready(function(){jQuery('#modal-login').modal('open');});</script>");
 			}
 		?>
