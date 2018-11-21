@@ -608,7 +608,6 @@
 
 						print('<div class="center">');
 						print('<br><h5>カートの中身が空です。</h5>');
-						print('<a href="index.php"><input class="btn" type="submit" value="戻る"></a>');
 					}
 
 					$userid = $_SESSION['C_UserID'];
