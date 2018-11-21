@@ -311,7 +311,7 @@
 							print('<div class="col s12 m5">');
 							print('<div class="card">');
 							print('<div class="card-image">');
-							print('<img src="'.$img_link.''.$result8['FoodID'].'.png" class="lazyload">');
+							print('<img data-src="'.$img_link.''.$result8['FoodID'].'.png" class="lazyload">');
 							print('<span class="card-title" style="font-weight: bold;">'.$result8['FoodName'].'</span>');
 							print('</div>');
 							print('<div class="card-content">');
@@ -367,7 +367,7 @@
 								<div class="card">
 									<div class="card-image">
 										<?php
-											print('<img src="'.$img_link.'0.png" class="lazyload">');
+											print('<img data-src="'.$img_link.'0.png" class="lazyload">');
 										?>
 										<span class="card-title" style="font-weight: bold;">会計本部</span>
 									</div>
@@ -394,7 +394,7 @@
 							<div class="card">
 								<div class="card-image">
 									<?php
-										print('<img src="'.$img_link.'twitter.png" class="lazyload">');
+										print('<img data-src="'.$img_link.'twitter.png" class="lazyload">');
 									?>
 								</div>
 								<div class="card-content">
@@ -431,7 +431,7 @@
        					$sql3 = mysqli_query($db_link, "SELECT * FROM tp_ticket WHERE UserID = '$UserID' AND Used = '0'");
 	   					while ($result3 = mysqli_fetch_assoc($sql3)) {
 			   				print('<div class="col">');
-	    					print('<img style="margin: 10px 10px 10px;"src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$result3['TicketACode'].'" alt="QRコード"  class="lazyload"/><br>');
+	    					print('<img style="margin: 10px 10px 10px;"data-src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$result3['TicketACode'].'" alt="QRコード"  class="lazyload"/><br>');
     						$foodid = $result3['FoodID'];
     						$sql4 = mysqli_query($db_link, "SELECT FoodName, OrgID, FoodPrice FROM tp_food WHERE FoodID = '$foodid'");
    							$result4 = mysqli_fetch_assoc($sql4);
@@ -623,7 +623,7 @@
 				<h4>お会計</h4>
     			<?php
     				print('<div class="center">');
-					print('<img style="margin: 10px 10px 10px;" src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$userid.'" alt="QRコード" class="lazyload"/><br>');
+					print('<img style="margin: 10px 10px 10px;" data-src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$userid.'" alt="QRコード" class="lazyload"/><br>');
 					print('<br>この画面を受付で表示してください。<br><br>');
 					print('UserID: '.$userid.'<br><br>');
 					print('<a href="checkin.php"><input class="btn" type="submit" value="支払いました"></a>');
