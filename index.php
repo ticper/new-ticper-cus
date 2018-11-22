@@ -69,6 +69,11 @@
 			  color: #000;
 			  z-index: 2;
 			}
+			.card-title {
+				display: block;
+				width: 100%;
+				background-color: #00000088;
+			}
 		</style>
 		<script>
 			$(function() {
