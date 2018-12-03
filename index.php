@@ -237,7 +237,7 @@
 					print('<div class="collapsible-body"><table>');
 					$sql2 = mysqli_query($db_link, "SELECT StageName, DATE_FORMAT(StartTime, '%H:%i') AS timeinstring1, DATE_FORMAT(EndTime, '%H:%i') AS timeinstring2 FROM tp_stage WHERE Start = 1 AND Finish = 0");
 					while($result2 = mysqli_fetch_assoc($sql2)) {
-						if($result2['StageName'] == 0) {
+						if($result2['StageName'] == '0') {
 							print('<tr><th colspan="3">現在開催中のステージはありません</th></tr>');
 						} else {
 							print('<tr><th>'.$result2['StageName'].'</th><td>'.$result2['timeinstring1'].'~'.$result2['timeinstring2'].'</td><th>開催中！</th></tr>');
