@@ -564,6 +564,7 @@
   				<div id="modal-cart" class="modal">
     		<div class="modal-content">
       			<h4>カート</h4>
+                <p>カートに入れるだけでは食券は使用できません（発行されません）<br>2階食堂の会計受付での会計を先にお願いいたします。<br>会計で必要なQRコードの提示はカート画面下にある「お会計」ボタンを押して提示してください。</p>
       			<?php
 					print('<table>');
 					print('<thead>');
