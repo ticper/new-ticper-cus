@@ -3,6 +3,7 @@
 	if(isset($_SESSION['C_UserID']) != ''){
 		print('<script>alert("既にログインしています。一旦ログアウトしてからアクセスしてください。")</script>');
 		print('<script>location.href = "index.php";</script>');
+		exit();
 	}
 ?>
 <!DOCTYPE HTML>

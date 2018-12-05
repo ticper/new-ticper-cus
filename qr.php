@@ -11,7 +11,7 @@
 	session_start();
 	if(isset($_SESSION['C_UserID']) == ''){
 		print('<script>alert("不正なリクエスト");location.href = "index.php";</script>');
-	
+		exit();
 	}
 ?>
 <!DOCTYPE html>
