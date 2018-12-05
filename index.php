@@ -115,7 +115,7 @@
 		</script>
 		<style>
 			body {
-				font-family: kozuka-gothic-pr6n, sans-serif;
+				font-family: fot-rodin-pron, sans-serif;
 
 				font-weight: 400;
 
