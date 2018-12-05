@@ -1,6 +1,9 @@
 <?php
 	session_start();
 	if(isset($_SESSION['C_UserID']) == ''){
+		print('<script>alert("ログインしてからアクセスしてください。")</script>');
+		print('<script>location.href = "index.php";</script>');
+		exit();
 	}
 ?>
 <!DOCTYPE html>
