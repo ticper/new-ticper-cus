@@ -7,7 +7,7 @@
   $db_link = new mysqli($db_host, $db_user, $db_pass, $db_name);
   mysqli_set_charset($db_link, 'utf8');
 
-  $img_link = ('https://booth.ticper.com/img/');
+  $img_link = ('https://ticper-2-yakiniki.c9users.io/new-ticper-booth/img/');
 
   if (mysqli_connect_errno()) {
     print('<!DOCTYPE HTML>');

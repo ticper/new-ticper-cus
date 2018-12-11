@@ -467,6 +467,7 @@
     						print('AC:'.$result3['TicketACode'].'<br>');
     						$money = $result4['FoodPrice'] * $result3['Sheets'];
    							print('<b>'.$money.'円</b>');
+   							print('<a href="index.php?ec=1" class="btn">読み込み完了</a>');
     						print('</div>');
     						$now = $now + 1;
    							if ($now == 3) {
