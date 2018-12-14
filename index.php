@@ -495,6 +495,7 @@
 					<h5>パスワード</h5>
 					<input type="password" name="password" class="validate">
 					<button type="submit" class="btn">ログインする</button>
+					<p>パスワードを忘れた方は2階受付にお越し下さい。</p>
 				</form>
     		</div>
     		<div class="modal-footer">
@@ -505,12 +506,12 @@
     		<div class="modal-content">
       			<h4>新規登録</h4>
       			<form action="registerdo.php" method="POST">
-					<h5>ユーザID</h5>
+					<h5>ユーザID(半角英数)</h5>
 					<input type="text" name="userid" class="validate">
 					<h5>ニックネーム</h5>
 					<input type="text" name="username" class="validate">
-					<h5>パスワード</h5>
-					<input type="password" name="password" class="validate">
+					<h5>パスワード(半角英数)</h5>
+					<input type="password" name="password" class="validate" placeholder="自分が覚えやすいものにしてください">
 					<button type="submit" class="btn">ログインする</button>
 				</form>
     		</div>
@@ -649,9 +650,9 @@
     			<?php
     				print('<div class="center">');
 					print('<img style="margin: 10px 10px 10px;" data-src="https://chart.apis.google.com/chart?chs=200x200&cht=qr&chl='.$userid.'" alt="QRコード" class="lazyload"/><br>');
-					print('<br>この画面を受付で表示してください。<br><br>');
+					print('<br>この画面を2階会計受付で表示してください。<br><br>');
 					print('UserID: '.$userid.'<br><br>');
-					print('<a href="checkin.php"><input class="btn" type="submit" value="支払いました"></a>');
+					print('<a href="index.php?ec=1"><input class="btn" type="submit" value="支払いました"></a>');
 					print('</div>');
 				?>
     		</div>
